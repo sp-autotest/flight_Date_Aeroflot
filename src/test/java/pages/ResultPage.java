@@ -48,6 +48,13 @@ public class ResultPage extends Page {
         assertTrue("Длительность перелета в маршруте отличается от забронированного" +
                 "\nОжидалось: " + f.duration +"\nФактически: " + duration, duration.equals(f.duration));
 
+        String date = flight.$(byXpath("descendant::div[@class='flight-booking__day-title']")).getText();
+        date = date.substring(0, date.indexOf(",")-2).trim();
+        System.out.print(date + " / ");
+        String fdate = new SimpleDateFormat("d MMMM yyyy", new Locale(Values.lang[ln][2])).format(f.start);
+        assertTrue("Дата прилета отличается от забронированной" +
+                "\nОжидалось: " + fdate +"\nФактически: " + date, date.equals(fdate));
+
         String start = flight.$(byXpath("descendant::div[@class='time-destination__from']/div[@class='time-destination__time']")).getText();
         System.out.print(start + " / ");
         String fstart = new SimpleDateFormat("HH:mm").format(f.start);
@@ -55,20 +62,10 @@ public class ResultPage extends Page {
                    "\nОжидалось: " + fstart +"\nФактически: " + start, start.equals(fstart));
 
         String end = flight.$(byXpath("descendant::div[@class='time-destination__to']/div[@class='time-destination__time']")).getText();
-        System.out.print(end + " / ");
+        System.out.print(end);
         String fend = new SimpleDateFormat("HH:mm").format(f.end);
         assertTrue("Время прилета отличается от забронированного" +
                 "\nОжидалось: " + fend +"\nФактически: " + end, end.equals(fend));
-
-        String date = flight.$(byXpath("descendant::div[@class='flight-booking__day-title']")).getText();
-        date = date.substring(0, date.indexOf(",")-2).trim();
-        System.out.print(date + " / ");
-        String format = "d MMMM yyyy";
-        /*String month = new SimpleDateFormat("MMMM", new Locale(Values.lang[ln][2])).format(f.start);
-        if (month.length()>5) format = format.replaceFirst("MMMM", "MMM.");*/
-        String fdate = new SimpleDateFormat(format, new Locale(Values.lang[ln][2])).format(f.start);
-        assertTrue("Дата прилета отличается от забронированной" +
-                "\nОжидалось: " + fdate +"\nФактически: " + date, date.equals(fdate));
     }
 
 
