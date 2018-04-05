@@ -138,6 +138,10 @@ public class FlightDateTest {
         EssPage essPg = new EssPage();
         essPg.checkEss1(flightList);//шаг 6
         essPg.checkTransportEss1(flightList);//шаг 7
+        essPg.checkHotelEss1(flightList);//шаг 8
+        essPg.clickContinue();//шаг 9
+        choosePg.chooseTestStend("9");//шаг 9
+        new EprPage().checkDataOnPayPage("10", flightList);//шаг 10
 
     }
 

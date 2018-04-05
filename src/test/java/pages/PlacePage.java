@@ -5,10 +5,6 @@ import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
-
-/**
- * Created by mycola on 22.02.2018.
- */
 public class PlacePage extends Page {
 
     @Step("Кликнуть \"Оплатить\" на странице выбора места")

@@ -20,9 +20,6 @@ import static config.Values.lang;
 import static config.Values.ln;
 import static config.Values.ticket;
 
-/**
- * Created by mycola on 20.02.2018.
- */
 public class SearchPage extends Page {
 
     List<Flight> flightList = new ArrayList<Flight>();
@@ -97,7 +94,9 @@ public class SearchPage extends Page {
         Sleep(2);
         ElementsCollection headers = $$(byXpath("//div[@class='row flight-search__header']"));
         ElementsCollection flights = headers.get(i-1).$$(byXpath("following-sibling::*"));
-        flights.get(0).click();
+        int limit = flights.size();
+        if (limit>10) limit = 4;
+        flights.get(getRandomNumberLimit(limit)).click();
     }
 
     @Step("Нажать \"Купить\"")

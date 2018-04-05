@@ -1,10 +1,7 @@
 package pages;
 
 import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.SelenideElement;
 import config.Values;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import ru.yandex.qatools.allure.annotations.Step;
 import struct.Flight;
 import java.text.SimpleDateFormat;
@@ -14,14 +11,10 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static config.Values.*;
 import static org.testng.AssertJUnit.assertTrue;
 
 
-/**
- * Created by mycola on 22.02.2018.
- */
 public class EssPage extends Page {
 
     @Step("Действие 6, Проверка данных на форме ESS")
@@ -55,23 +48,26 @@ public class EssPage extends Page {
         }
     }
 
-    @Step("Действие 8, Проверка данных в блоке «Страховка»")
-    public void step8() {
-        System.out.println("\t8. Check Insurance group");
-
-    }
-
-    @Step("Действие 9, Проверка добавления Медицинской страховки {0}")
-    public void step9(String type) {
-        System.out.println("\t9. Add Medical Insurance");
+    @Step("Действие 8, Нажать на кнопку «Отели», проверка данных на форме ESS")
+    public void checkHotelEss1(List<Flight> flightList) {
+        System.out.println("\t8. Check ESS form after Hotel");
+        clickHotelButton();
+        checkHotelFormAppear();
         screenShot("Скриншот");
-
+        ElementsCollection flights = $$(byXpath("//div[@class='cart__item-details']"));
+        //checkPriceData();
+        for (int i = 0; i < flights.size(); i++) {
+            checkFlightData(i+1, flightList, flights);
+            checkNumberData(i+1, flightList, flights);
+            checkDateData(i+1, flightList, flights);
+            checkDurationData(i+1, flightList, flights);
+        }
     }
 
-    @Step("Действие 10, Нажать Оплатить в корзине")
-    public void clickPayInCart() {
-        System.out.println("\t10. Click Pay in cart");
-        $(byXpath("//a[@class='cart__item-counter-link']")).click();
+    @Step("Действие 9, Нажать Продолжить")
+    public void clickContinue() {
+        System.out.println("\t9. Click Continue button");
+        $(byXpath("//a[@class='next__button']")).click();
         waitPlane();
     }
 
@@ -143,7 +139,13 @@ public class EssPage extends Page {
 
 
     @Step("Нажать кнопку «Транспорт»")
-    public void clickTransportButton() {
+    private void clickTransportButton() {
+        $(byXpath("//a[@class='next__button']")).shouldBe(visible).click();
+        waitPlane();
+    }
+
+    @Step("Нажать кнопку «Отели»")
+    private void clickHotelButton() {
         $(byXpath("//a[@class='next__button']")).shouldBe(visible).click();
         waitPlane();
     }
@@ -152,6 +154,13 @@ public class EssPage extends Page {
     private void checkTransportBlock(){
         $(byXpath("//div[@id='left-column-transport'][contains(@class,'--active')]")).
                 shouldBe(visible).shouldBe(exactText(text[2][ln]));
+        System.out.println("Transport form appeared");
+    }
+
+    @Step("Проверка перехода в раздел «Проживание»")
+    private void checkHotelFormAppear() {
+        $(byXpath("//h1[contains(text(),'" + text[17][ln] + "')]")).shouldBe(visible);
+        System.out.println("Accommodation form appeared");
     }
 
 }

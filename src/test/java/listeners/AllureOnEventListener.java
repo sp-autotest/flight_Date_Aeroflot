@@ -8,9 +8,6 @@ import java.io.IOException;
 import static listeners.ScreenShoter.makeScreenshot;
 
 
-/**
- * Created by mycola on 20.02.2018.
- */
 public class AllureOnEventListener implements ITestListener {
 
     @Override

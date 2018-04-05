@@ -15,9 +15,6 @@ import static config.Values.pnr;
 import static org.testng.AssertJUnit.assertTrue;
 
 
-/**
- * Created by mycola on 21.02.2018.
- */
 public class ChoosePage extends Page {
 
     private String env = System.getProperty("area", "RC");//получить имя площадки из дженкинса, при неудаче площадка=RC
@@ -25,6 +22,7 @@ public class ChoosePage extends Page {
 
     @Step("Действие 4, выбор стенда")
     public void step4() {
+        System.out.println("\t4. Choose Test Stend");
         checkChoosePage();
         System.out.println("URL = " + url());
         if ((!Values.cur.equals("RUB"))&(Values.currencyChange.equals("soap"))) changeCurrency();

@@ -1,8 +1,6 @@
 package struct;
 
-/**
- * Created by mycola on 01.03.2018.
- */
+
 public class Passenger {
     public int gender; //пол
     public String firstname; //имя

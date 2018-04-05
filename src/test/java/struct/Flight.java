@@ -3,9 +3,6 @@ package struct;
 import java.util.Date;
 
 
-/**
- * Created by mycola on 22.02.2018.
- */
 public class Flight {
     public String from; //откуда
     public String to; //куда

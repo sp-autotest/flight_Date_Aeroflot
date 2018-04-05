@@ -21,9 +21,7 @@ import static com.codeborne.selenide.WebDriverRunner.url;
 import static config.Values.lang;
 import static config.Values.ln;
 
-/**
- * Created by mycola on 21.02.2018.
- */
+
 public class PassengerPage extends Page {
 
     List<Passenger> passengerList = new ArrayList<Passenger>();

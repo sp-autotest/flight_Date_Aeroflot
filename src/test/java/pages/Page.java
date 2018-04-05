@@ -10,9 +10,7 @@ import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
 import static listeners.ScreenShoter.makeScreenshot;
 
-/**
- * Created by mycola on 20.02.2018.
- */
+
 public class Page {
 
     public static void Sleep(int time){
