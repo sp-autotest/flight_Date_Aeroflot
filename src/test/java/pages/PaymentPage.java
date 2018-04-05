@@ -27,7 +27,6 @@ public class PaymentPage extends Page {
         clickPayButton();
         checkPaySuccessfull();
         checkResultPageAppear();
-        Sleep(10);
     }
 
     @Step("Заполнить поле \"Номер карты\"")

@@ -144,9 +144,8 @@ public class FlightDateTest {
         EprPage eprPg = new EprPage();
         eprPg.checkDataOnPayPage("10", flightList);//шаг 10
         eprPg.clickPay();//шаг 11
-        PaymentPage paymentPg = new PaymentPage();
-        paymentPg.setCardDetails();//шаг 12
-
+        new PaymentPage().setCardDetails();//шаг 12
+        new ResultPage().checkServicesData(flightList);//шаг 13
 
     }
 
