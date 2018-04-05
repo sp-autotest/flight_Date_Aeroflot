@@ -11,10 +11,14 @@ import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.opera.OperaOptions;
 import org.testng.TestNG;
 import org.testng.annotations.*;
-import pages.Page;
+import pages.*;
 import ru.yandex.qatools.allure.annotations.Description;
 import ru.yandex.qatools.allure.annotations.Stories;
 import ru.yandex.qatools.allure.annotations.Title;
+import struct.Flight;
+import struct.Passenger;
+
+import java.util.List;
 
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
@@ -99,12 +103,12 @@ public class FlightDateTest {
                 {"Итальянский", "EUR", "MOW", "LED", 20},
                 {"Японский",    "USD", "MOW", "LED", 20},
                 {"Китайский",   "USD", "MOW", "LED", 20},
-                {"Английский",  "USD", "MOW", "LED", 20},
+                {"Английский",  "USD", "MOW", "LED", 20},/*
                 {"Корейский",   "RUB", "MOW", "LED", 20},
                 {"Русский",     "RUB", "MOW", "LED", 20},
                 {"Немецкий",    "RUB", "MOW", "LED", 20},
                 {"Русский",     "CNY", "MOW", "LED", 20},
-                {"Китайский",   "CNY", "MOW", "LED", 20},
+                {"Китайский",   "CNY", "MOW", "LED", 20},/*
                 {"Немецкий",    "CNY", "MOW", "LED", 20},*/
         };
     }
@@ -124,7 +128,16 @@ public class FlightDateTest {
                 ", " + currency + ", " + from + "->" + to + ", " + days +"days" +
                 "\n============================================================");
         open(Values.host);
-        Page.Sleep(1);
+        SearchPage searchPg = new SearchPage();
+        searchPg.searchFlight1(from, to, days);//шаг 1
+        List<Flight> flightList = searchPg.selectFlight1();//шаг 2
+        List<Passenger> passList = new PassengerPage().step3();//шаг 3
+        new PlacePage().clickPay();//кликнуть Оплатить на странице выбора места
+        ChoosePage choosePg = new ChoosePage();
+        choosePg.step4();//шаг 4(смена валюты) и 5
+        EssPage essPg = new EssPage();
+        essPg.checkEss1(flightList);//шаг 6
+
     }
 
 }
