@@ -137,6 +137,7 @@ public class FlightDateTest {
         choosePg.step4();//шаг 4(смена валюты) и 5
         EssPage essPg = new EssPage();
         essPg.checkEss1(flightList);//шаг 6
+        essPg.checkTransportEss1(flightList);//шаг 7
 
     }
 
