@@ -141,7 +141,12 @@ public class FlightDateTest {
         essPg.checkHotelEss1(flightList);//шаг 8
         essPg.clickContinue();//шаг 9
         choosePg.chooseTestStend("9");//шаг 9
-        new EprPage().checkDataOnPayPage("10", flightList);//шаг 10
+        EprPage eprPg = new EprPage();
+        eprPg.checkDataOnPayPage("10", flightList);//шаг 10
+        eprPg.clickPay();//шаг 11
+        PaymentPage paymentPg = new PaymentPage();
+        paymentPg.setCardDetails();//шаг 12
+
 
     }
 

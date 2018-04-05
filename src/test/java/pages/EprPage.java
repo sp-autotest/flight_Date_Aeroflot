@@ -32,6 +32,13 @@ public class EprPage extends Page {
         }
     }
 
+    @Step("Действие 11, Нажать кнопку «Оплатить»")
+    public void clickPay() {
+        System.out.println("\t11. Click Pay");
+        clickPayButton();
+        checkPaymentAppeared();
+    }
+
     @Step("Проверка данных о {0}-м маршруте")
     private void checkFlight(int i, Flight f, SelenideElement flight){
         String from = flight.$(byXpath("descendant::div[@class='flight__direction-airport-code ng-binding']")).getText();
@@ -83,10 +90,16 @@ public class EprPage extends Page {
     }
 
     @Step("Нажать кнопку «Оплатить»")
-    public void clickPayButton() {
+    private void clickPayButton() {
         $(byXpath("//div[@class='next__button-inner ng-scope']")).shouldBe(visible).click();
         waitPlane();
     }
+
+    @Step("Проверка появления формы оплаты картой")
+    private void checkPaymentAppeared() {
+        $("#pan_main").shouldBe(visible);
+    }
+
 
 
 }
