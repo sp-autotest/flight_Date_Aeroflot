@@ -18,10 +18,15 @@ import ru.yandex.qatools.allure.annotations.Title;
 import struct.Flight;
 import struct.Passenger;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import static config.Values.ln;
 import static pages.Page.getLanguageNumber;
 import static pages.Page.stringIntoInt;
 
@@ -86,37 +91,72 @@ public class FlightDateTest {
     @DataProvider
     public Object[][] parseLocaleData1() {
         return new Object[][]{
-                /*{"Французский", "EUR", "MOW", "PRG", 20},
+                {"Французский", "EUR", "MOW", "PRG", 20},
                 {"Испанский",   "EUR", "MOW", "PRG", 20},
                 {"Итальянский", "EUR", "MOW", "PRG", 20},
                 {"Японский",    "USD", "MOW", "PRG", 20},
                 {"Китайский",   "USD", "MOW", "PRG", 20},
                 {"Английский",  "USD", "MOW", "PRG", 20},
                 {"Корейский",   "RUB", "MOW", "PRG", 20},
-                */{"Русский",     "RUB", "MOW", "PRG", 20},/*
+                {"Русский",     "RUB", "MOW", "PRG", 20},
                 {"Немецкий",    "RUB", "MOW", "PRG", 20},
                 {"Русский",     "CNY", "MOW", "PRG", 20},
                 {"Китайский",   "CNY", "MOW", "PRG", 20},
-                {"Немецкий",    "CNY", "MOW", "PRG", 20},*/
-                /*{"Французский", "EUR", "MOW", "LED", 20},
-                {"Испанский",   "EUR", "MOW", "LED", 20},
-                {"Итальянский", "EUR", "MOW", "LED", 20},
-                {"Японский",    "USD", "MOW", "LED", 20},
-                {"Китайский",   "USD", "MOW", "LED", 20},
-                {"Английский",  "USD", "MOW", "LED", 20},/*
-                {"Корейский",   "RUB", "MOW", "LED", 20},
-                {"Русский",     "RUB", "MOW", "LED", 20},
-                {"Немецкий",    "RUB", "MOW", "LED", 20},
-                {"Русский",     "CNY", "MOW", "LED", 20},
-                {"Китайский",   "CNY", "MOW", "LED", 20},/*
-                {"Немецкий",    "CNY", "MOW", "LED", 20},*/
+                {"Немецкий",    "CNY", "MOW", "PRG", 20},
         };
     }
 
     @DataProvider
     public Object[][] parseLocaleData2() {
         return new Object[][]{
-                {"Русский",     "RUB", "MOW", "PRG", 20, 30},
+ /*               {"Французский", "EUR", "MOW", "PRG", 25, 35},
+                {"Испанский",   "EUR", "MOW", "PRG", 25, 35},
+   */             {"Итальянский", "EUR", "MOW", "PRG", 25, 35},
+                {"Японский",    "USD", "MOW", "PRG", 25, 35},
+                {"Китайский",   "USD", "MOW", "PRG", 25, 35},
+                {"Английский",  "USD", "MOW", "PRG", 25, 35},
+     /*           {"Корейский",   "RUB", "MOW", "PRG", 25, 35},
+                {"Русский",     "RUB", "MOW", "PRG", 25, 35},
+                {"Немецкий",    "RUB", "MOW", "PRG", 25, 35},
+                {"Русский",     "CNY", "MOW", "PRG", 25, 35},
+                {"Китайский",   "CNY", "MOW", "PRG", 25, 35},
+               */ {"Немецкий",    "CNY", "MOW", "PRG", 25, 35},/*
+                {"Французский", "EUR", "MOW", "PRG", 35, 45},
+                {"Испанский",   "EUR", "MOW", "PRG", 35, 45},
+                {"Итальянский", "EUR", "MOW", "PRG", 35, 45},
+                {"Японский",    "USD", "MOW", "PRG", 35, 45},
+                {"Китайский",   "USD", "MOW", "PRG", 35, 45},
+                {"Английский",  "USD", "MOW", "PRG", 35, 45},
+                {"Корейский",   "RUB", "MOW", "PRG", 35, 45},
+                {"Русский",     "RUB", "MOW", "PRG", 35, 45},
+                {"Немецкий",    "RUB", "MOW", "PRG", 35, 45},
+                {"Русский",     "CNY", "MOW", "PRG", 35, 45},
+                {"Китайский",   "CNY", "MOW", "PRG", 35, 45},
+                {"Немецкий",    "CNY", "MOW", "PRG", 35, 45},
+                {"Французский", "EUR", "MOW", "PRG", 45, 55},
+                {"Испанский",   "EUR", "MOW", "PRG", 45, 55},
+                {"Итальянский", "EUR", "MOW", "PRG", 45, 55},
+                {"Японский",    "USD", "MOW", "PRG", 45, 55},
+                {"Китайский",   "USD", "MOW", "PRG", 45, 55},
+                {"Английский",  "USD", "MOW", "PRG", 45, 55},
+                {"Корейский",   "RUB", "MOW", "PRG", 45, 55},
+                {"Русский",     "RUB", "MOW", "PRG", 45, 55},
+                {"Немецкий",    "RUB", "MOW", "PRG", 45, 55},
+                {"Русский",     "CNY", "MOW", "PRG", 45, 55},
+                {"Китайский",   "CNY", "MOW", "PRG", 45, 55},
+                {"Немецкий",    "CNY", "MOW", "PRG", 45, 55},
+                {"Французский", "EUR", "MOW", "PRG", 55, 65},
+                {"Испанский",   "EUR", "MOW", "PRG", 55, 65},
+                {"Итальянский", "EUR", "MOW", "PRG", 55, 65},
+                {"Японский",    "USD", "MOW", "PRG", 55, 65},
+                {"Китайский",   "USD", "MOW", "PRG", 55, 65},
+                {"Английский",  "USD", "MOW", "PRG", 55, 65},
+                {"Корейский",   "RUB", "MOW", "PRG", 55, 65},
+                {"Русский",     "RUB", "MOW", "PRG", 55, 65},
+                {"Немецкий",    "RUB", "MOW", "PRG", 55, 65},
+                {"Русский",     "CNY", "MOW", "PRG", 55, 65},
+                {"Китайский",   "CNY", "MOW", "PRG", 55, 65},
+                {"Немецкий",    "CNY", "MOW", "PRG", 55, 65},*/
         };
     }
 
@@ -151,7 +191,8 @@ public class FlightDateTest {
         eprPg.clickPay();//шаг 11
         new PaymentPage().setCardDetails();//шаг 12
         new ResultPage().checkServicesData(flightList);//шаг 13
-
+        //шаг 14
+        new SabrePage().checkSabreLog(flightList);//шаг 15
     }
 
     @Title("Направление Туда-Обратно")
@@ -184,6 +225,7 @@ public class FlightDateTest {
         eprPg.clickPay();//шаг 11
         new PaymentPage().setCardDetails();//шаг 12
         new ResultPage().checkServicesData(flightList);//шаг 13
-
+        //шаг 14
+        new SabrePage().checkSabreLog(flightList);//шаг 15
     }
 }

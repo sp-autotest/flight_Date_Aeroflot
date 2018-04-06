@@ -105,7 +105,8 @@ public class SearchPage extends Page {
     private void setBack(String date) {
         SelenideElement el = $$(byXpath("//input[@class='input__text-input']")).get(3);
         el.setValue(date);
-        el.click();
+        el.$(byXpath("../../label")).click();
+
     }
 
     @Step("Нажать \"Найти\"")

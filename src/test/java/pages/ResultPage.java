@@ -44,6 +44,7 @@ public class ResultPage extends Page {
                    "\nОжидалось: " + f.number +"\nФактически: " + number, number.equals(f.number));
 
         String duration = flight.$(byXpath("descendant::div[@class='flight-booking__flight-time']")).getText().replaceAll("[^0-9]", "");
+        if (ln!=0&ln!=1) duration = duration.substring(0,duration.length()-2);
         System.out.print(duration + " / ");
         assertTrue("Длительность перелета в маршруте отличается от забронированного" +
                 "\nОжидалось: " + f.duration +"\nФактически: " + duration, duration.equals(f.duration));
@@ -51,7 +52,7 @@ public class ResultPage extends Page {
         String date = flight.$(byXpath("descendant::div[@class='flight-booking__day-title']")).getText();
         date = date.substring(0, date.indexOf(",")-2).trim();
         System.out.print(date + " / ");
-        String fdate = new SimpleDateFormat("d MMMM yyyy", new Locale(Values.lang[ln][2])).format(f.start);
+        String fdate = new SimpleDateFormat(Values.lang[ln][5], new Locale(Values.lang[ln][2])).format(f.start);
         assertTrue("Дата прилета отличается от забронированной" +
                 "\nОжидалось: " + fdate +"\nФактически: " + date, date.equals(fdate));
 

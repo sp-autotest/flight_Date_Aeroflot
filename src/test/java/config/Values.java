@@ -16,21 +16,22 @@ public class Values {
                                                   //    soap - с помощью soap-запросов
     public static String email = "tafl@software-provider.ru";
     public static String host = "https://afl-test.test.aeroflot.ru/sb/app/ru-ru";
+    public static String sabrehost = "https://ws.ess.test.aeroflot.ru/tools/SabreWS/Command/";
 
     public static String card[][] = {
         {"4154810047474554", "12", "2019", "314", "TEST TEST"}, //0 - Visa
     };
 
     public static String lang[][] = {
-        {"Русский", "русский", "ru", "ddMMMMyyyy,HH:mm→", "Россия"},
-        {"Английский", "english", "en", "ddMMMyyyy,HH:mm→", "Russia"},
-        {"Немецкий", "deutsch", "de", "ddMMMyyyy,HH:mm→", "Russland"},
-        {"Испанский", "español", "es", "ddMMMyyyy,HH:mm→", "Rusia"},
-        {"Итальянский", "italiano", "it", "ddMMMyyyy,HH:mm→", "Russia"},
-        {"Французский", "le français", "fr", "ddMMMyyyy,HH:mm→", "Russie"},
-        {"Китайский", "中文", "zh", "ddM月yyyy,HH:mm→", "俄罗斯"},
-        {"Корейский", "한국어", "ko", "ddMMMyyyy,HH:mm→", "러시아"},
-        {"Японский", "日本語", "ja", "ddMMMMyyyy,HH:mm→", "ロシア"},
+        {"Русский", "русский", "ru", "ddMMMMyyyy,HH:mm→", "Россия", "d MMMM yyyy г."},
+        {"Английский", "english", "en", "ddMMMyyyy,HH:mm→", "Russia", "MMMM d"},
+        {"Немецкий", "deutsch", "de", "ddMMMyyyy,HH:mm→", "Russland", "d. MMMM yyyy"},
+        {"Испанский", "español", "es", "ddMMMyyyy,HH:mm→", "Rusia", "d de MMMM de yyyy"},
+        {"Итальянский", "italiano", "it", "ddMMMyyyy,HH:mm→", "Russia", "dd MMMM yyyy"},
+        {"Французский", "le français", "fr", "ddMMMyyyy,HH:mm→", "Russie", "d MMMM yyyy"},
+        {"Китайский", "中文", "zh", "ddM月yyyy,HH:mm→", "俄罗斯", "yyyy MMMM d "},
+        {"Корейский", "한국어", "ko", "ddMMMyyyy,HH:mm→", "러시아", "yyyy년 MMMM d일 "},
+        {"Японский", "日本語", "ja", "ddMMMMyyyy,HH:mm→", "ロシア", "yyyy年MMMMd日"},
     };
 
     public static String text[][] = {
