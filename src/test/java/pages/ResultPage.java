@@ -62,7 +62,7 @@ public class ResultPage extends Page {
                    "\nОжидалось: " + fstart +"\nФактически: " + start, start.equals(fstart));
 
         String end = flight.$(byXpath("descendant::div[@class='time-destination__to']/div[@class='time-destination__time']")).getText();
-        System.out.print(end);
+        System.out.println(end);
         String fend = new SimpleDateFormat("HH:mm").format(f.end);
         assertTrue("Время прилета отличается от забронированного" +
                 "\nОжидалось: " + fend +"\nФактически: " + end, end.equals(fend));

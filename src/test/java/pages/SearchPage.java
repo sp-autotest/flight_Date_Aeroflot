@@ -103,7 +103,9 @@ public class SearchPage extends Page {
 
     @Step("Указать дату \"Обратно\": {0}")
     private void setBack(String date) {
-        $$(byXpath("//input[@class='input__text-input']")).get(3).shouldBe(visible).setValue(date);
+        SelenideElement el = $$(byXpath("//input[@class='input__text-input']")).get(3);
+        el.setValue(date);
+        el.click();
     }
 
     @Step("Нажать \"Найти\"")
