@@ -113,11 +113,16 @@ public class FlightDateTest {
         };
     }
 
+    @DataProvider
+    public Object[][] parseLocaleData2() {
+        return new Object[][]{
+                {"Русский",     "RUB", "MOW", "PRG", 20, 30},
+        };
+    }
+
 
     @Title("Направление Туда")
-    @Description("Карта VISA;\nНаправление перелета: туда;\n" +
-            "Состав бронирования авиаперелета, билеты: 1 взрослый;\n" +
-            "Дополнительные услуги: «Полетная страховка»")
+    @Description("Карта VISA;\nБилеты: 1 взрослый;\nДополнительные услуги: «Полетная страховка»")
     @Test(priority = 1, dataProvider = "parseLocaleData1")
     public void directionFrom(String locale, String currency, String from, String to, int days) {
         Values.ln = getLanguageNumber(locale);
@@ -149,4 +154,36 @@ public class FlightDateTest {
 
     }
 
+    @Title("Направление Туда-Обратно")
+    @Description("Карта VISA;\nБилеты: 1 взрослый;\nДополнительные услуги: «Полетная страховка»")
+    @Test(priority = 2, dataProvider = "parseLocaleData2")
+    public void directionRoundtrip(String locale, String currency, String from, String to, int days, int backdays) {
+        Values.ln = getLanguageNumber(locale);
+        Values.cur = currency;
+        Values.ticket = 1;
+        System.out.println("============================================================"+
+                "\n*** AUTOTEST *** : direction Roundtrip, " + Values.lang[Values.ln][2].toUpperCase()+
+                ", " + currency + ", " + from + "->" + to + ", " + days +"days," + backdays +"days" +
+                "\n============================================================");
+        open(Values.host);
+        SearchPage searchPg = new SearchPage();
+        searchPg.searchFlight2(from, to, days, backdays);//шаг 1
+        List<Flight> flightList = searchPg.selectFlight2();//шаг 2
+        List<Passenger> passList = new PassengerPage().step3();//шаг 3
+        new PlacePage().clickPay();//кликнуть Оплатить на странице выбора места
+        ChoosePage choosePg = new ChoosePage();
+        choosePg.step4();//шаг 4(смена валюты) и 5
+        EssPage essPg = new EssPage();
+        essPg.checkEss1(flightList);//шаг 6
+        essPg.checkTransportEss1(flightList);//шаг 7
+        essPg.checkHotelEss1(flightList);//шаг 8
+        essPg.clickContinue();//шаг 9
+        choosePg.chooseTestStend("9");//шаг 9
+        EprPage eprPg = new EprPage();
+        eprPg.checkDataOnPayPage("10", flightList);//шаг 10
+        eprPg.clickPay();//шаг 11
+        new PaymentPage().setCardDetails();//шаг 12
+        new ResultPage().checkServicesData(flightList);//шаг 13
+
+    }
 }

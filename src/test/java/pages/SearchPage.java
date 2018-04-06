@@ -37,11 +37,34 @@ public class SearchPage extends Page {
         clickSearchButton();
     }
 
+    @Step("Действие 1, поиск рейсов")
+    public void searchFlight2(String from, String to, int days, int backdays) {
+        selectLocale();
+        setFrom(from);
+        setTo(to);
+        dateThere = addMonthAndDays(0,days);
+        setThere(dateThere);
+        dateBack = addMonthAndDays(0,backdays);
+        setBack(dateBack);
+        clickSearchButton();
+    }
+
     @Step("Действие 2, выбор рейсов")
     public List<Flight> selectFlight1() {
         selectSimpleFlight(1); // 1 - полет в одну сторону, туда
         clickBuyButton();
         saveFlightData(1); // 1 - сохранить данные только одного направления
+        clickPassengersButton();
+        return flightList;
+    }
+
+    @Step("Действие 2, выбор рейсов")
+    public List<Flight> selectFlight2() {
+        selectSimpleFlight(1); // 2 - полет туда
+        clickBuyButton();
+        selectSimpleFlight(2); // 2 - полет обратно
+        clickBuyButton();
+        saveFlightData(2); // 2 - сохранить данные двух направлений
         clickPassengersButton();
         return flightList;
     }
