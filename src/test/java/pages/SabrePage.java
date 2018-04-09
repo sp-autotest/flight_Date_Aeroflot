@@ -81,27 +81,29 @@ public class SabrePage extends Page {
     private void checkFlight(int i, Flight f, String log){
         System.out.println(log);
         String[] arr = log.split(" ");
+        if (arr[2].length()==2) log = log.replaceFirst(arr[2]+" ", arr[2]+"0");
+        arr = log.split(" ");
         //for(String s : arr) System.out.println(s);
         String find = f.number.replace(" ", "");
         assertTrue("Номер рейса не найден в логе" +
-                   "\nЛог: " + log + "\nОжидалось:" + find + "|\nФактически:" + arr[2].substring(0,arr[2].length()-1) +"|",
+                   "\nЛог: " + log + "\nОжидалось :" + find + "\nФактически:" + arr[2].substring(0,arr[2].length()-1) +"",
                    find.equals(arr[2].substring(0,arr[2].length()-1)));
 
         find = new SimpleDateFormat("ddMMM", new Locale("en")).format(f.start).toUpperCase();
         assertTrue("Дата маршрута не найдена в логе" +
-                   "\nЛог: " + log + "\nОжидалось:" + find + "|\nФактически:" + arr[3] + "|", find.equals(arr[3]));
+                   "\nЛог: " + log + "\nОжидалось :" + find + "\nФактически:" + arr[3], find.equals(arr[3]));
 
         find = f.from+f.to;
         assertTrue("Направление маршрута не найдено в логе" +
-                   "\nЛог: " + log + "\nОжидалось:" + find + "|\nФактически:" + arr[5] + "|", find.equals(arr[5]));
+                   "\nЛог: " + log + "\nОжидалось :" + find + "\nФактически:" + arr[5], find.equals(arr[5]));
 
         find = new SimpleDateFormat("HHmm").format(f.start);
         assertTrue("Время вылета не найдено в логе" +
-                   "\nЛог: " + log + "\nОжидалось:" + find + "|\nФактически:" + arr[8] + "|", find.equals(arr[8]));
+                   "\nЛог: " + log + "\nОжидалось :" + find + "\nФактически:" + arr[8], find.equals(arr[8]));
 
         find = new SimpleDateFormat("HHmm").format(f.end);
         assertTrue("Время прилета не найдено в логе" +
-                   "\nЛог: " + log + "\nОжидалось:" + find + "|\nФактически:" + arr[10] + "|", find.equals(arr[10]));
+                   "\nЛог: " + log + "\nОжидалось :" + find + "\nФактически:" + arr[10], find.equals(arr[10]));
     }
 
 }

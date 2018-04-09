@@ -109,7 +109,9 @@ public class EssPage extends Page {
     @Step("Проверка данных о дате {0}-го авиаперелета")
     private void checkDateData(int i, List<Flight> flightList, ElementsCollection flights){
         String date = flights.get(i-1).$(byXpath("descendant::div[@class='h-color--gray h-mt--4']")).getText().replace(" ", "");
-        date = date.substring(0, date.indexOf("("));
+        int plus = date.indexOf("+");
+        if (plus>0) date = date.substring(0, plus);
+        else date = date.substring(0, date.indexOf("("));
         System.out.println("site = " + date);
         String format = Values.lang[ln][3];
         String month = new SimpleDateFormat("MMMM", new Locale(Values.lang[ln][2])).format(flightList.get(i-1).start);
@@ -118,7 +120,7 @@ public class EssPage extends Page {
         dd = dd + new SimpleDateFormat("HH:mm").format(flightList.get(i-1).end);
         System.out.println("book = " + dd);
         assertTrue("Дата авиаперелета не совпадает с забронированной" +
-                   "\nОжидалось: " + dd +"\nФактически: " + date, date.equals(dd));
+                   "\nОжидалось : " + dd +"\nФактически: " + date, date.equals(dd));
     }
 
     @Step("Проверка данных о длительности {0}-го авиаперелета")
@@ -126,11 +128,12 @@ public class EssPage extends Page {
         String duration = "";
         String time = flights.get(i-1).$(byXpath("descendant::div[@class='h-color--gray h-mt--4']")).getText();
         time = time.substring(time.indexOf("("), time.indexOf(")")-1);
-        for (int c = 0; c < time.length(); c++) {
-            if (Character.isDigit(time.charAt(c))) {
-                duration = duration + time.charAt(c);
-            }
-        }
+        String[] arr = time.split(" ");
+        if (arr.length>1) {
+            duration = arr[1].replaceAll("\\D+", "");
+            if (duration.length() == 1) duration = "0" + duration;
+        } else duration = "00";
+        duration = arr[0].replaceAll("\\D+", "") + duration;
         System.out.println("site = " + duration);
         System.out.println("book = " + flightList.get(i-1).duration);
         assertTrue("Длительность авиаперелета не совпадает с забронированной" +
@@ -147,9 +150,9 @@ public class EssPage extends Page {
 
     @Step("Нажать кнопку «Отели»")
     private void clickHotelButton() {
-        $(byXpath("//a[@class='next__button']")).shouldBe(visible).click();
-        Sleep(1);
-        $(byXpath("//div[@class='cart__item']")).shouldBe(visible).click();
+        $(byXpath("//a[@class='next__button']")).shouldBe(visible).shouldBe(enabled).click();
+        Sleep(2);
+        $(byXpath("//div[@class='cart__item']")).shouldBe(visible).shouldBe(enabled).click();
         waitPlane();
     }
 

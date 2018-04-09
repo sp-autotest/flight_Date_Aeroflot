@@ -120,9 +120,8 @@ public class SearchPage extends Page {
         Sleep(2);
         ElementsCollection headers = $$(byXpath("//div[@class='row flight-search__header']"));
         ElementsCollection flights = headers.get(i-1).$$(byXpath("following-sibling::*"));
-        int limit = flights.size();
-        if (limit>10) limit = 4;
-        flights.get(getRandomNumberLimit(limit)).click();
+        //int limit = flights.size();
+        flights.get(0).click();//выбираем первый рейс из предложенных
     }
 
     @Step("Нажать \"Купить\"")
@@ -204,16 +203,27 @@ public class SearchPage extends Page {
         $(byXpath("//a[contains(@class,'modal__close')]")).shouldBe(visible);
         ElementsCollection dur = $$(byXpath("//div[@class='flight__date']"));
         for (int i=1; i<dur.size(); i=i+2) {
-            temp = dur.get(i).$(byXpath("descendant::span[2]")).getText();
+            int last = dur.get(i).$$(byXpath("descendant::span")).size();
+            temp = dur.get(i).$(byXpath("descendant::span["+last+"]")).getText();
             if (temp.indexOf("：")>0) {
                 temp = temp.substring(temp.indexOf("：") + 2);
             } else {
                 temp = temp.substring(temp.indexOf(":") + 2);
             }
             temp = temp.substring(0, temp.length() - 3);
-            for (int c = 0; c < temp.length(); c++) {
-                if (Character.isDigit(temp.charAt(c))) {
-                    duration = duration + temp.charAt(c);
+            if (temp.contains(" ")){
+                String[] arr = temp.split(" ");
+                duration = arr[0] + duration;
+                if (arr.length>2) {
+                    if (arr[2].length() == 1) duration = duration + "0" + arr[2];
+                    else duration = duration + arr[2];
+                } else duration = duration + "00";
+
+            }else {
+                for (int c = 0; c < temp.length(); c++) {
+                    if (Character.isDigit(temp.charAt(c))) {
+                        duration = duration + temp.charAt(c);
+                    }
                 }
             }
             duration = duration + " ";
