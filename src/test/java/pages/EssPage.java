@@ -1,6 +1,7 @@
 package pages;
 
 import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.SelenideElement;
 import config.Values;
 import ru.yandex.qatools.allure.annotations.Step;
 import struct.Flight;
@@ -147,6 +148,8 @@ public class EssPage extends Page {
     @Step("Нажать кнопку «Отели»")
     private void clickHotelButton() {
         $(byXpath("//a[@class='next__button']")).shouldBe(visible).click();
+        Sleep(1);
+        $(byXpath("//div[@class='cart__item']")).shouldBe(visible).click();
         waitPlane();
     }
 
