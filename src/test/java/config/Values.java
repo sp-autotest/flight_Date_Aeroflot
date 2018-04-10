@@ -16,7 +16,11 @@ public class Values {
                                                   //    soap - с помощью soap-запросов
     public static String email = "tafl@software-provider.ru";
     public static String host = "https://afl-test.test.aeroflot.ru/sb/app/ru-ru";
+
     public static String sabrehost = "https://ws.ess.test.aeroflot.ru/tools/SabreWS/Command/";
+    public static String office_host = "https://office.ess.test.aeroflot.ru/";
+    public static String office_login = "";
+    public static String office_password = "";
 
     public static String card[][] = {
         {"4154810047474554", "12", "2019", "314", "TEST TEST"}, //0 - Visa
@@ -59,6 +63,15 @@ public class Values {
             {"Внуково", "Vnukovo", "Vnukovo", "Vnukovo", "Vnukovo", "Vnoukovo", "尤努科沃", "브누코보", "ヴヌーコヴォ"},
             {"Бесплатно", "Free of charge", "Kostenlos", "Gratis", "Gratis", "Gratuit", "免费", "무료", "無料"},
             {"До", "Till", "Bis", "Hasta el", "Entro il:", "Jusqu`au", "截止", "까지", "まで"}
+    };
+
+    public static String city[][] = {
+        {"PRG", "Прага, Аэропорт Вацлава Гавела"},
+        {"LED", "Санкт-Петербург, Пулково"},
+        {"SVO", "Москва, Шереметьево"},
+        {"VKO", "Москва, Внуково"},
+        {"VIE", "Вена, Швехат"},
+        {"BKK", "Бангкок"}
     };
 
 }

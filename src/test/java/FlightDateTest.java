@@ -47,6 +47,8 @@ public class FlightDateTest {
         browserHight = stringIntoInt(res.substring(res.indexOf("x")+1));//взять высоту браузера из строки с разрешением
         System.out.println("Browser = " + browserName);//вывести в лог значение имени браузера
         System.out.println("Resolution = " + res);//вывести в лог значение разрешения
+        Values.office_login = System.getProperty("officelogin", "any");//получить логин АРМ ESS из дженкинса
+        Values.office_password = System.getProperty("officepassword", "");//получить пароль АРМ ESS из дженкинса
     }
 
     @BeforeMethod
@@ -173,7 +175,7 @@ public class FlightDateTest {
                 {"Русский",     "CNY", "MOW", "BKK", 25, 35},
                 {"Китайский",   "CNY", "MOW", "BKK", 25, 35},
                 {"Немецкий",    "CNY", "MOW", "BKK", 25, 35},
-/*
+
                 {"Французский", "EUR", "MOW", "BKK", 35, 45},
                 {"Испанский",   "EUR", "MOW", "BKK", 35, 45},
                 {"Итальянский", "EUR", "MOW", "BKK", 35, 45},
@@ -211,7 +213,7 @@ public class FlightDateTest {
                 {"Немецкий",    "RUB", "MOW", "BKK", 55, 65},
                 {"Русский",     "CNY", "MOW", "BKK", 55, 65},
                 {"Китайский",   "CNY", "MOW", "BKK", 55, 65},
-                {"Немецкий",    "CNY", "MOW", "BKK", 55, 65},*/
+                {"Немецкий",    "CNY", "MOW", "BKK", 55, 65},
         };
     }
 
@@ -246,7 +248,7 @@ public class FlightDateTest {
         eprPg.clickPay();//шаг 11
         new PaymentPage().setCardDetails();//шаг 12
         new ResultPage().checkServicesData(flightList);//шаг 13
-        //шаг 14
+        new OfficePage().checkLog(flightList);//шаг 14
         new SabrePage().checkSabreLog(flightList);//шаг 15
     }
 
@@ -280,7 +282,7 @@ public class FlightDateTest {
         eprPg.clickPay();//шаг 11
         new PaymentPage().setCardDetails();//шаг 12
         new ResultPage().checkServicesData(flightList);//шаг 13
-        //шаг 14
+        new OfficePage().checkLog(flightList);//шаг 14
         new SabrePage().checkSabreLog(flightList);//шаг 15
     }
 }
