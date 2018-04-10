@@ -213,12 +213,11 @@ public class SearchPage extends Page {
             temp = temp.substring(0, temp.length() - 3);
             if (temp.contains(" ")){
                 String[] arr = temp.split(" ");
-                duration = arr[0] + duration;
+                duration = duration + arr[0];
                 if (arr.length>2) {
                     if (arr[2].length() == 1) duration = duration + "0" + arr[2];
                     else duration = duration + arr[2];
                 } else duration = duration + "00";
-
             }else {
                 for (int c = 0; c < temp.length(); c++) {
                     if (Character.isDigit(temp.charAt(c))) {
