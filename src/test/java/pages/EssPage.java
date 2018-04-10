@@ -3,6 +3,7 @@ package pages;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import config.Values;
+import org.openqa.selenium.interactions.Actions;
 import ru.yandex.qatools.allure.annotations.Step;
 import struct.Flight;
 import java.text.SimpleDateFormat;
@@ -12,6 +13,7 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static config.Values.*;
 import static org.testng.AssertJUnit.assertTrue;
 
@@ -22,6 +24,7 @@ public class EssPage extends Page {
     public void checkEss1(List<Flight> flightList) {
         System.out.println("\t6. Check ESS form");
         checkPageAppear();
+        moveMouseToFlight();
         screenShot("Скриншот");
         ElementsCollection flights = $$(byXpath("//div[@class='cart__item-details']"));
         //checkPriceData();
@@ -38,6 +41,7 @@ public class EssPage extends Page {
         System.out.println("\t7. Check ESS form after Transport");
         clickTransportButton();
         checkTransportBlock();
+        moveMouseToFlight();
         screenShot("Скриншот");
         ElementsCollection flights = $$(byXpath("//div[@class='cart__item-details']"));
         //checkPriceData();
@@ -54,6 +58,7 @@ public class EssPage extends Page {
         System.out.println("\t8. Check ESS form after Hotel");
         clickHotelButton();
         checkHotelFormAppear();
+        moveMouseToFlight();
         screenShot("Скриншот");
         ElementsCollection flights = $$(byXpath("//div[@class='cart__item-details']"));
         //checkPriceData();
@@ -167,6 +172,14 @@ public class EssPage extends Page {
     private void checkHotelFormAppear() {
         $(byXpath("//h1[contains(text(),'" + text[17][ln] + "')]")).shouldBe(visible);
         System.out.println("Accommodation form appeared");
+    }
+
+    @Step("Переместить мышку в блок маршрутов")
+    private void moveMouseToFlight() {
+        SelenideElement el = $(byXpath("//div[@data-toggle-id='cart-booking']"));
+        Actions actions = new Actions(getWebDriver());
+        actions.moveToElement(el).perform();
+        Sleep(1);
     }
 
 }
