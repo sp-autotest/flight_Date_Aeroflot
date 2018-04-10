@@ -43,8 +43,19 @@ public class ResultPage extends Page {
         assertTrue("Номер рейса в маршруте отличается от забронированного" +
                    "\nОжидалось : " + f.number +"\nФактически: " + number, number.equals(f.number));
 
-        String duration = flight.$(byXpath("descendant::div[@class='flight-booking__flight-time']")).getText().replaceAll("[^0-9]", "");
-        if (ln!=0&ln!=1) duration = duration.substring(0,duration.length()-2);
+        String duration = "";
+        if (ln!=0&ln!=1) {
+            duration = flight.$(byXpath("descendant::div[@class='flight-booking__flight-time']")).getText().replaceAll("[^0-9]", "");
+            duration = duration.substring(0,duration.length()-2);
+        }else {
+            String time = flight.$(byXpath("descendant::div[@class='flight-booking__flight-time']")).getText();
+            String[] arr = time.split(" ");
+            duration = arr[0];
+            if (arr.length>2) {
+                if (arr[2].length() == 1) duration = duration + "0" + arr[2];
+                else duration = duration + arr[2];
+            } else duration = duration + "00";
+        }
         System.out.print(duration + " / ");
         assertTrue("Длительность перелета в маршруте отличается от забронированного" +
                 "\nОжидалось : " + f.duration +"\nФактически: " + duration, duration.equals(f.duration));
