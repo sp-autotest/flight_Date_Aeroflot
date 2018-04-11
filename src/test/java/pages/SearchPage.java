@@ -69,6 +69,16 @@ public class SearchPage extends Page {
         return flightList;
     }
 
+    @Step("Действие 2, выбор рейсов")
+    public List<Flight> selectFlight3() {
+        selectTransferFlight(1); // 2 - полет туда
+        clickBuyButton();
+        selectTransferFlight(2); // 2 - полет обратно
+        clickBuyButton();
+        saveFlightData(2); // 2 - сохранить данные двух направлений
+        clickPassengersButton();
+        return flightList;
+    }
 
     @Step("Выбрать язык: {0}")
     private void selectLocale() {
@@ -122,6 +132,16 @@ public class SearchPage extends Page {
         ElementsCollection flights = headers.get(i-1).$$(byXpath("following-sibling::*"));
         //int limit = flights.size();
         flights.get(0).click();//выбираем первый рейс из предложенных
+    }
+
+    @Step("Выбрать рейс")
+    private void selectTransferFlight(int i) {
+        $(byXpath("//div[contains(@class,'frame__heading')]")).shouldBe(visible);
+        Sleep(2);
+        ElementsCollection headers = $$(byXpath("//div[@class='row flight-search__header']"));
+        ElementsCollection flights = headers.get(i-1).$$(byXpath("following-sibling::*"));
+        int limit = flights.size();
+        flights.get(limit-1).click();//выбираем последний рейс из предложенных
     }
 
     @Step("Нажать \"Купить\"")

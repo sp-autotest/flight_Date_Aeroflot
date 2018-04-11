@@ -13,20 +13,13 @@ import org.testng.TestNG;
 import org.testng.annotations.*;
 import pages.*;
 import ru.yandex.qatools.allure.annotations.Description;
-import ru.yandex.qatools.allure.annotations.Stories;
 import ru.yandex.qatools.allure.annotations.Title;
 import struct.Flight;
 import struct.Passenger;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.io.IOException;
 import java.util.List;
-import java.util.Locale;
-
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
-import static config.Values.ln;
 import static pages.Page.getLanguageNumber;
 import static pages.Page.stringIntoInt;
 
@@ -81,8 +74,12 @@ public class FlightDateTest {
     }
 
     @AfterMethod
-    public void stop() {
+    public void stop() throws IOException {
         getWebDriver().quit();
+
+        //костыль, для того чтобы закрыть оперу, т.к. в ее драйвере есть баг
+        // https://github.com/operasoftware/operachromiumdriver/issues/44
+        if (browserName.equals("opera")) Runtime.getRuntime().exec("taskkill /f /im opera.exe");
     }
 
     @AfterClass
@@ -93,14 +90,14 @@ public class FlightDateTest {
     @DataProvider
     public Object[][] parseLocaleData1() {
         return new Object[][]{
-                {"Французский", "EUR", "MOW", "PRG", 20},
+                /*{"Французский", "EUR", "MOW", "PRG", 20},
                 {"Испанский",   "EUR", "MOW", "PRG", 20},
                 {"Итальянский", "EUR", "MOW", "PRG", 20},
                 {"Японский",    "USD", "MOW", "PRG", 20},
                 {"Китайский",   "USD", "MOW", "PRG", 20},
                 {"Английский",  "USD", "MOW", "PRG", 20},
                 {"Корейский",   "RUB", "MOW", "PRG", 20},
-                {"Русский",     "RUB", "MOW", "PRG", 20},
+                */{"Русский",     "RUB", "MOW", "PRG", 20},/*
                 {"Немецкий",    "RUB", "MOW", "PRG", 20},
                 {"Русский",     "CNY", "MOW", "PRG", 20},
                 {"Китайский",   "CNY", "MOW", "PRG", 20},
@@ -156,21 +153,21 @@ public class FlightDateTest {
                 {"Немецкий",    "RUB", "MOW", "PRG", 60},
                 {"Русский",     "CNY", "MOW", "PRG", 60},
                 {"Китайский",   "CNY", "MOW", "PRG", 60},
-                {"Немецкий",    "CNY", "MOW", "PRG", 60},
+                {"Немецкий",    "CNY", "MOW", "PRG", 60},*/
         };
     }
 
     @DataProvider
     public Object[][] parseLocaleData2() {
         return new Object[][]{
-                {"Французский", "EUR", "MOW", "BKK", 25, 35},
+                /*{"Французский", "EUR", "MOW", "BKK", 25, 35},
                 {"Испанский",   "EUR", "MOW", "BKK", 25, 35},
                 {"Итальянский", "EUR", "MOW", "BKK", 25, 35},
                 {"Японский",    "USD", "MOW", "BKK", 25, 35},
                 {"Китайский",   "USD", "MOW", "BKK", 25, 35},
                 {"Английский",  "USD", "MOW", "BKK", 25, 35},
                 {"Корейский",   "RUB", "MOW", "BKK", 25, 35},
-                {"Русский",     "RUB", "MOW", "BKK", 25, 35},
+                */{"Русский",     "RUB", "MOW", "BKK", 25, 35},/*
                 {"Немецкий",    "RUB", "MOW", "BKK", 25, 35},
                 {"Русский",     "CNY", "MOW", "BKK", 25, 35},
                 {"Китайский",   "CNY", "MOW", "BKK", 25, 35},
@@ -213,10 +210,53 @@ public class FlightDateTest {
                 {"Немецкий",    "RUB", "MOW", "BKK", 55, 65},
                 {"Русский",     "CNY", "MOW", "BKK", 55, 65},
                 {"Китайский",   "CNY", "MOW", "BKK", 55, 65},
-                {"Немецкий",    "CNY", "MOW", "BKK", 55, 65},
+                {"Немецкий",    "CNY", "MOW", "BKK", 55, 65}*/
         };
     }
 
+    @DataProvider
+    public Object[][] parseLocaleData3() {
+        return new Object[][]{
+                /*{"Французский", "EUR", "VIE", "LED", 27, 47},
+                {"Испанский",   "EUR", "VIE", "LED", 27, 47},
+                {"Итальянский", "EUR", "VIE", "LED", 27, 47},
+                {"Японский",    "USD", "VIE", "LED", 27, 47},
+                {"Китайский",   "USD", "VIE", "LED", 27, 47},
+                {"Английский",  "USD", "VIE", "LED", 27, 47},
+                {"Корейский",   "RUB", "VIE", "LED", 27, 47},
+                */{"Русский",     "RUB", "VIE", "LED", 27, 47},/*
+                {"Немецкий",    "RUB", "VIE", "LED", 27, 47},
+                {"Русский",     "CNY", "VIE", "LED", 27, 47},
+                {"Китайский",   "CNY", "VIE", "LED", 27, 47},
+                {"Немецкий",    "CNY", "VIE", "LED", 27, 47},*/
+
+                /*{"Французский", "EUR", "VIE", "LED", 37, 57},
+                {"Испанский",   "EUR", "VIE", "LED", 37, 57},
+                {"Итальянский", "EUR", "VIE", "LED", 37, 57},
+                {"Японский",    "USD", "VIE", "LED", 37, 57},
+                {"Китайский",   "USD", "VIE", "LED", 37, 57},
+                {"Английский",  "USD", "VIE", "LED", 37, 57},
+                {"Корейский",   "RUB", "VIE", "LED", 37, 57},
+                {"Русский",     "RUB", "VIE", "LED", 37, 57},
+                {"Немецкий",    "RUB", "VIE", "LED", 37, 57},
+                {"Русский",     "CNY", "VIE", "LED", 37, 57},
+                {"Китайский",   "CNY", "VIE", "LED", 37, 57},
+                {"Немецкий",    "CNY", "VIE", "LED", 37, 57},
+
+                {"Французский", "EUR", "VIE", "LED", 47, 67},
+                {"Испанский",   "EUR", "VIE", "LED", 47, 67},
+                {"Итальянский", "EUR", "VIE", "LED", 47, 67},
+                {"Японский",    "USD", "VIE", "LED", 47, 67},
+                {"Китайский",   "USD", "VIE", "LED", 47, 67},
+                {"Английский",  "USD", "VIE", "LED", 47, 67},
+                {"Корейский",   "RUB", "VIE", "LED", 47, 67},
+                {"Русский",     "RUB", "VIE", "LED", 47, 67},
+                {"Немецкий",    "RUB", "VIE", "LED", 47, 67},
+                {"Русский",     "CNY", "VIE", "LED", 47, 67},
+                {"Китайский",   "CNY", "VIE", "LED", 47, 67},
+                {"Немецкий",    "CNY", "VIE", "LED", 47, 67}*/
+        };
+    }
 
     @Title("Направление Туда")
     @Description("Карта VISA;\nБилеты: 1 взрослый;\nДополнительные услуги: «Полетная страховка»")
@@ -233,7 +273,7 @@ public class FlightDateTest {
         SearchPage searchPg = new SearchPage();
         searchPg.searchFlight1(from, to, days);//шаг 1
         List<Flight> flightList = searchPg.selectFlight1();//шаг 2
-        List<Passenger> passList = new PassengerPage().step3();//шаг 3
+        new PassengerPage().step3();//шаг 3
         new PlacePage().clickPay();//кликнуть Оплатить на странице выбора места
         ChoosePage choosePg = new ChoosePage();
         choosePg.step4();//шаг 4(смена валюты) и 5
@@ -252,6 +292,7 @@ public class FlightDateTest {
         new SabrePage().checkSabreLog(flightList);//шаг 15
     }
 
+
     @Title("Направление Туда-Обратно")
     @Description("Карта VISA;\nБилеты: 1 взрослый;\nДополнительные услуги: «Полетная страховка»")
     @Test(priority = 2, dataProvider = "parseLocaleData2")
@@ -267,7 +308,42 @@ public class FlightDateTest {
         SearchPage searchPg = new SearchPage();
         searchPg.searchFlight2(from, to, days, backdays);//шаг 1
         List<Flight> flightList = searchPg.selectFlight2();//шаг 2
-        List<Passenger> passList = new PassengerPage().step3();//шаг 3
+        new PassengerPage().step3();//шаг 3
+        new PlacePage().clickPay();//кликнуть Оплатить на странице выбора места
+        ChoosePage choosePg = new ChoosePage();
+        choosePg.step4();//шаг 4(смена валюты) и 5
+        EssPage essPg = new EssPage();
+        essPg.checkEss1(flightList);//шаг 6
+        essPg.checkTransportEss1(flightList);//шаг 7
+        essPg.checkHotelEss1(flightList);//шаг 8
+        essPg.clickContinue();//шаг 9
+        choosePg.chooseTestStend("9");//шаг 9
+        EprPage eprPg = new EprPage();
+        eprPg.checkDataOnPayPage("10", flightList);//шаг 10
+        eprPg.clickPay();//шаг 11
+        new PaymentPage().setCardDetails();//шаг 12
+        new ResultPage().checkServicesData(flightList);//шаг 13
+        new OfficePage().checkLog(flightList);//шаг 14
+        new SabrePage().checkSabreLog(flightList);//шаг 15
+    }
+
+
+    @Title("Направление Туда-Обратно(с пересадкой)")
+    @Description("Карта VISA;\nБилеты: 1 взрослый;\nДополнительные услуги: «Полетная страховка»")
+    @Test(priority = 3, dataProvider = "parseLocaleData3")
+    public void directionRoundtripTransfer(String locale, String currency, String from, String to, int days, int backdays) {
+        Values.ln = getLanguageNumber(locale);
+        Values.cur = currency;
+        Values.ticket = 1;
+        System.out.println("======================================================================================="+
+                "\n*** AUTOTEST *** : direction Roundtrip with transfer, " + Values.lang[Values.ln][2].toUpperCase()+
+                ", " + currency + ", " + from + "->" + to + ", " + days +"days, " + backdays +"days" +
+                "\n=======================================================================================");
+        open(Values.host);
+        SearchPage searchPg = new SearchPage();
+        searchPg.searchFlight2(from, to, days, backdays);//шаг 1
+        List<Flight> flightList = searchPg.selectFlight3();//шаг 2
+        new PassengerPage().step3();//шаг 3
         new PlacePage().clickPay();//кликнуть Оплатить на странице выбора места
         ChoosePage choosePg = new ChoosePage();
         choosePg.step4();//шаг 4(смена валюты) и 5

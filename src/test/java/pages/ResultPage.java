@@ -20,9 +20,16 @@ public class ResultPage extends Page {
     @Step("Действие 13, проверка страницы результатов оплаты")
     public void checkServicesData(List<Flight> flyList) {
         System.out.println("\t13. Cheking final page with pay result");
-        ElementsCollection flights = $$(byXpath("//div[@class='flight-booking__group']"));
+        ElementsCollection flights = $$(byXpath("//div[@class='row flight-booking__row']"));
+        System.out.println(flights.size() + " flights found");
         for (int i = 0; i < flights.size(); i++) {
             checkFlight(i + 1, flyList.get(i), flights.get(i));
+        }
+        ElementsCollection ways = $$(byXpath("//div[@class='flight-booking__group']"));
+        System.out.println(ways.size() + " ways found");
+        int k = (flights.size() == 2) ? 1 : 2;
+        for (int i = 0; i < ways.size(); i++) {
+            checkFlightDate(i + 1, flyList.get(i * k), ways.get(i));
         }
     }
 
@@ -60,13 +67,6 @@ public class ResultPage extends Page {
         assertTrue("Длительность перелета в маршруте отличается от забронированного" +
                 "\nОжидалось : " + f.duration +"\nФактически: " + duration, duration.equals(f.duration));
 
-        String date = flight.$(byXpath("descendant::div[@class='flight-booking__day-title']")).getText();
-        date = date.substring(0, date.indexOf(",")).trim();
-        System.out.print(date + " / ");
-        String fdate = new SimpleDateFormat(Values.lang[ln][5], new Locale(Values.lang[ln][2])).format(f.start);
-        assertTrue("Дата прилета отличается от забронированной" +
-                "\nОжидалось : " + fdate +"\nФактически: " + date, date.equals(fdate));
-
         String start = flight.$(byXpath("descendant::div[@class='time-destination__from']/div[@class='time-destination__time']")).getText();
         System.out.print(start + " / ");
         String fstart = new SimpleDateFormat("HH:mm").format(f.start);
@@ -79,6 +79,17 @@ public class ResultPage extends Page {
         assertTrue("Время прилета отличается от забронированного" +
                 "\nОжидалось : " + fend +"\nФактически: " + end, end.equals(fend));
     }
+
+    @Step("Проверка даты в {0}-м перелете")
+    private void checkFlightDate(int i, Flight f, SelenideElement flight){
+        String date = flight.$(byXpath("descendant::div[@class='flight-booking__day-title']")).getText();
+        date = date.substring(0, date.indexOf(",")).trim();
+        System.out.println(date);
+        String fdate = new SimpleDateFormat(Values.lang[ln][5], new Locale(Values.lang[ln][2])).format(f.start);
+        assertTrue("Дата прилета отличается от забронированной" +
+                           "\nОжидалось : " + fdate +"\nФактически: " + date, date.equals(fdate));
+    }
+
 
 
 }
