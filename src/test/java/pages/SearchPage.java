@@ -93,12 +93,13 @@ public class SearchPage extends Page {
     @Step("Выбрать город вылета: {0}")
     private void setFrom(String city) {
         $$(byXpath("//input[@class='input__text-input']")).get(0).shouldBe(visible).setValue(city);
+        $(byXpath("//div[@class='search-form__dropdown-item-code'][text()='" + city + "']")).click();
     }
 
     @Step("Выбрать город прибытия: {0}")
     private void setTo(String city) {
         $$(byXpath("//input[@class='input__text-input']")).get(1).shouldBe(visible).setValue(city);
-
+        $(byXpath("//div[@class='search-form__dropdown-item-code'][text()='" + city + "']")).click();
     }
 
     @Step("Указать дату \"Туда\": {0}")
