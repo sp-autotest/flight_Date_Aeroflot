@@ -5,14 +5,12 @@ import com.codeborne.selenide.SelenideElement;
 import config.Values;
 import ru.yandex.qatools.allure.annotations.Step;
 import struct.Flight;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
@@ -23,9 +21,9 @@ import static org.testng.AssertJUnit.assertTrue;
 
 public class EprPage extends Page {
 
-    @Step("Действие {0}, проверка данных на странице оплаты")
-    public void checkDataOnPayPage(String n, List<Flight> flyList) {
-        System.out.println("\t" + n + ". Checking data on Pay page");
+    @Step("Действие 10, проверка данных на странице оплаты")
+    public void checkDataOnPayPage(List<Flight> flyList) {
+        System.out.println("\t10. Checking data on Pay page");
         screenShot("Скриншот");
         ElementsCollection flights = $$(byXpath("//div[@class='flight__row']"));
         for (int i = 0; i < flights.size(); i++) {

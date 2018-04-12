@@ -18,7 +18,6 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static config.Values.lang;
 import static config.Values.ln;
-import static config.Values.ticket;
 
 public class SearchPage extends Page {
 
@@ -46,6 +45,22 @@ public class SearchPage extends Page {
         setThere(dateThere);
         dateBack = addMonthAndDays(0,backdays);
         setBack(dateBack);
+        clickSearchButton();
+    }
+
+    @Step("Действие 1, поиск рейсов")
+    public void searchFlight4(String from, String to, String from2, int days, int backdays) {
+        selectLocale();
+        setFrom(from);
+        setTo(to);
+        dateThere = addMonthAndDays(0,days);
+        setThere(dateThere);
+        clickComplexRouteLink();
+        clickAddFlightButton();
+        setFrom2(from2);
+        setTo2(from);
+        dateBack = addMonthAndDays(0,backdays);
+        setThere2(dateBack);
         clickSearchButton();
     }
 
@@ -122,7 +137,7 @@ public class SearchPage extends Page {
 
     @Step("Нажать \"Найти\"")
     private void clickSearchButton() {
-        $(byXpath("//a[contains(@class,'button--wide')]")).shouldBe(visible).click();
+        $(byXpath("//a[@class='button button--wide button--lg']")).shouldBe(visible).click();
     }
 
     @Step("Выбрать рейс")
@@ -161,6 +176,35 @@ public class SearchPage extends Page {
         $(byXpath("//a[@class='next__button']")).shouldBe(visible).click();
     }
 
+    @Step("Нажать \"Составить сложный маршрут\"")
+    private void clickComplexRouteLink() {
+        $(byXpath("//label[@class='input__label']")).shouldBe(visible).click();
+        $(byXpath("//a[@class='search-form__change-route']")).shouldBe(visible).click();
+    }
+
+    @Step("Нажать \"Добавить перелет\"")
+    private void clickAddFlightButton() {
+        $(byXpath("//div[@class='search-form__add-route']/a")).shouldBe(visible).click();
+    }
+
+    @Step("Выбрать город вылета: {0}")
+    private void setFrom2(String city) {
+        $$(byXpath("//input[@class='input__text-input']")).get(3).shouldBe(visible).setValue(city);
+        $(byXpath("//div[@class='search-form__dropdown-item-code'][text()='" + city + "']")).click();
+    }
+
+    @Step("Выбрать город прибытия: {0}")
+    private void setTo2(String city) {
+        $$(byXpath("//input[@class='input__text-input']")).get(4).shouldBe(visible).setValue(city);
+        $(byXpath("//div[@class='search-form__dropdown-item-code'][text()='" + city + "']")).click();
+    }
+
+    @Step("Указать дату вылета: {0}")
+    private void setThere2(String date) {
+        $$(byXpath("//input[@class='input__text-input']")).get(5).shouldBe(visible).setValue(date);
+        $(byXpath("//label[@class='input__label']")).shouldBe(visible).click();
+    }
+
     private static String addMonthAndDays(int months, int days)
     {
         Calendar cal = Calendar.getInstance();
@@ -176,16 +220,31 @@ public class SearchPage extends Page {
         Flight f;
         String d;
         ElementsCollection groups = $$(byXpath("//div[@class='flight-search flight-search--active']"));
-        for (int m=0; m < dir; m++) {
+        for (int m=0; m < dir; m++) { //цикл перебора направлений полета, максимум 2: туда и обратно
             ElementsCollection flights = groups.get(m).$$(byXpath("descendant::div[@class='row flight-search__flights']"));
-            for (int i = 0; i < flights.size(); i++) {
+            for (int i = 0; i < flights.size(); i++) { //цикл перебора маршрутов, максимум что видел - два
                 ElementsCollection el = flights.get(i).$$(byXpath("child::*"));
                 if (el.size() < 3) {
-                    String transfer = flights.get(i).$(byXpath("descendant::div[@class='flight-search__transfer']/span")).getText();
-                    String[] arr = transfer.split(" "); //заносим информацию о пересадке в массив
-                    int minutes = stringIntoInt(arr[1])*60; //переводим часы ожидания в минуты
-                    if (arr.length>3) minutes = minutes + stringIntoInt(arr[3]); //добавляем минуты ожидания, если указаны
-                    flightList.get(flightList.size() - 1).transfer = minutes*60000; //сохраняем время ожидания в милисекундах
+                    SelenideElement trans = flights.get(i).$(byXpath("descendant::div[@class='flight-search__transfer']/span"));
+                    if (trans.getAttribute("class").equals("h-color--orange")) {
+                        /*если это сложный маршрут, необходимо занести оранжевую дату обратного
+                        вылета в уже записанную в List дату второго маршрута */
+                        f = flightList.get(i-1);
+                        d = dateBack + " " + flights.get(i-1).$(byXpath("descendant::div[@class='time-destination__from']/div[@class='time-destination__time']")).getText();
+                        f.start = stringToDate(d);
+                        d = dateBack + " " + flights.get(i-1).$(byXpath("descendant::div[@class='time-destination__to']/div[@class='time-destination__time']")).getText();
+                        f.end = stringToDate(d);
+                        flightList.set(i-1, f);
+                        m=1;//поменять номер направления на "обратно", чтобы в последующих маршрутах сохранять dateBack
+                    } else {
+                        /*если это пересадка - сохранить ее в текущем маршруте*/
+                        String transfer = trans.getText();
+                        String[] arr = transfer.split(" "); //заносим информацию о пересадке в массив
+                        int minutes = stringIntoInt(arr[1]) * 60; //переводим часы ожидания в минуты
+                        if (arr.length > 3)
+                            minutes = minutes + stringIntoInt(arr[3]); //добавляем минуты ожидания, если указаны
+                        flightList.get(flightList.size() - 1).transfer = minutes * 60000; //сохраняем время ожидания в милисекундах
+                    }
                     continue;
                 }
                 f = new Flight();

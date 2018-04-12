@@ -15,7 +15,6 @@ import pages.*;
 import ru.yandex.qatools.allure.annotations.Description;
 import ru.yandex.qatools.allure.annotations.Title;
 import struct.Flight;
-import struct.Passenger;
 import java.io.IOException;
 import java.util.List;
 import static com.codeborne.selenide.Selenide.open;
@@ -90,14 +89,14 @@ public class FlightDateTest {
     @DataProvider
     public Object[][] parseLocaleData1() {
         return new Object[][]{
-                /*{"Французский", "EUR", "MOW", "PRG", 20},
+                {"Французский", "EUR", "MOW", "PRG", 20},
                 {"Испанский",   "EUR", "MOW", "PRG", 20},
                 {"Итальянский", "EUR", "MOW", "PRG", 20},
                 {"Японский",    "USD", "MOW", "PRG", 20},
                 {"Китайский",   "USD", "MOW", "PRG", 20},
                 {"Английский",  "USD", "MOW", "PRG", 20},
                 {"Корейский",   "RUB", "MOW", "PRG", 20},
-                */{"Русский",     "RUB", "MOW", "PRG", 20},/*
+                {"Русский",     "RUB", "MOW", "PRG", 20},
                 {"Немецкий",    "RUB", "MOW", "PRG", 20},
                 {"Русский",     "CNY", "MOW", "PRG", 20},
                 {"Китайский",   "CNY", "MOW", "PRG", 20},
@@ -153,21 +152,21 @@ public class FlightDateTest {
                 {"Немецкий",    "RUB", "MOW", "PRG", 60},
                 {"Русский",     "CNY", "MOW", "PRG", 60},
                 {"Китайский",   "CNY", "MOW", "PRG", 60},
-                {"Немецкий",    "CNY", "MOW", "PRG", 60},*/
+                {"Немецкий",    "CNY", "MOW", "PRG", 60},
         };
     }
 
     @DataProvider
     public Object[][] parseLocaleData2() {
         return new Object[][]{
-                /*{"Французский", "EUR", "MOW", "BKK", 25, 35},
+                {"Французский", "EUR", "MOW", "BKK", 25, 35},
                 {"Испанский",   "EUR", "MOW", "BKK", 25, 35},
                 {"Итальянский", "EUR", "MOW", "BKK", 25, 35},
                 {"Японский",    "USD", "MOW", "BKK", 25, 35},
                 {"Китайский",   "USD", "MOW", "BKK", 25, 35},
                 {"Английский",  "USD", "MOW", "BKK", 25, 35},
                 {"Корейский",   "RUB", "MOW", "BKK", 25, 35},
-                */{"Русский",     "RUB", "MOW", "BKK", 25, 35},/*
+                {"Русский",     "RUB", "MOW", "BKK", 25, 35},
                 {"Немецкий",    "RUB", "MOW", "BKK", 25, 35},
                 {"Русский",     "CNY", "MOW", "BKK", 25, 35},
                 {"Китайский",   "CNY", "MOW", "BKK", 25, 35},
@@ -210,27 +209,27 @@ public class FlightDateTest {
                 {"Немецкий",    "RUB", "MOW", "BKK", 55, 65},
                 {"Русский",     "CNY", "MOW", "BKK", 55, 65},
                 {"Китайский",   "CNY", "MOW", "BKK", 55, 65},
-                {"Немецкий",    "CNY", "MOW", "BKK", 55, 65}*/
+                {"Немецкий",    "CNY", "MOW", "BKK", 55, 65}
         };
     }
 
     @DataProvider
     public Object[][] parseLocaleData3() {
         return new Object[][]{
-                /*{"Французский", "EUR", "VIE", "LED", 27, 47},
+                {"Французский", "EUR", "VIE", "LED", 27, 47},
                 {"Испанский",   "EUR", "VIE", "LED", 27, 47},
                 {"Итальянский", "EUR", "VIE", "LED", 27, 47},
                 {"Японский",    "USD", "VIE", "LED", 27, 47},
                 {"Китайский",   "USD", "VIE", "LED", 27, 47},
                 {"Английский",  "USD", "VIE", "LED", 27, 47},
                 {"Корейский",   "RUB", "VIE", "LED", 27, 47},
-                */{"Русский",     "RUB", "VIE", "LED", 27, 47},/*
+                {"Русский",     "RUB", "VIE", "LED", 27, 47},
                 {"Немецкий",    "RUB", "VIE", "LED", 27, 47},
                 {"Русский",     "CNY", "VIE", "LED", 27, 47},
                 {"Китайский",   "CNY", "VIE", "LED", 27, 47},
-                {"Немецкий",    "CNY", "VIE", "LED", 27, 47},*/
+                {"Немецкий",    "CNY", "VIE", "LED", 27, 47},
 
-                /*{"Французский", "EUR", "VIE", "LED", 37, 57},
+                {"Французский", "EUR", "VIE", "LED", 37, 57},
                 {"Испанский",   "EUR", "VIE", "LED", 37, 57},
                 {"Итальянский", "EUR", "VIE", "LED", 37, 57},
                 {"Японский",    "USD", "VIE", "LED", 37, 57},
@@ -254,7 +253,39 @@ public class FlightDateTest {
                 {"Немецкий",    "RUB", "VIE", "LED", 47, 67},
                 {"Русский",     "CNY", "VIE", "LED", 47, 67},
                 {"Китайский",   "CNY", "VIE", "LED", 47, 67},
-                {"Немецкий",    "CNY", "VIE", "LED", 47, 67}*/
+                {"Немецкий",    "CNY", "VIE", "LED", 47, 67}
+        };
+    }
+
+    @DataProvider
+    public Object[][] parseLocaleData4() {
+        return new Object[][]{
+                {"Французский", "EUR", "PRG", "MOW", "LED", 20, 30},
+                {"Испанский",   "EUR", "PRG", "MOW", "LED", 20, 30},
+                {"Итальянский", "EUR", "PRG", "MOW", "LED", 20, 30},
+                {"Японский",    "USD", "PRG", "MOW", "LED", 20, 30},
+                {"Китайский",   "USD", "PRG", "MOW", "LED", 20, 30},
+                {"Английский",  "USD", "PRG", "MOW", "LED", 20, 30},
+                {"Корейский",   "RUB", "PRG", "MOW", "LED", 20, 30},
+                {"Русский",     "RUB", "PRG", "MOW", "LED", 20, 30},
+                {"Немецкий",    "RUB", "PRG", "MOW", "LED", 20, 30},
+                {"Русский",     "CNY", "PRG", "MOW", "LED", 20, 30},
+                {"Китайский",   "CNY", "PRG", "MOW", "LED", 20, 30},
+                {"Немецкий",    "CNY", "PRG", "MOW", "LED", 20, 30},
+
+                {"Французский", "EUR", "PRG", "MOW", "LED", 30, 40},
+                {"Испанский",   "EUR", "PRG", "MOW", "LED", 30, 40},
+                {"Итальянский", "EUR", "PRG", "MOW", "LED", 30, 40},
+                {"Японский",    "USD", "PRG", "MOW", "LED", 30, 40},
+                {"Китайский",   "USD", "PRG", "MOW", "LED", 30, 40},
+                {"Английский",  "USD", "PRG", "MOW", "LED", 30, 40},
+                {"Корейский",   "RUB", "PRG", "MOW", "LED", 30, 40},
+                {"Русский",     "RUB", "PRG", "MOW", "LED", 30, 40},
+                {"Немецкий",    "RUB", "PRG", "MOW", "LED", 30, 40},
+                {"Русский",     "CNY", "PRG", "MOW", "LED", 30, 40},
+                {"Китайский",   "CNY", "PRG", "MOW", "LED", 30, 40},
+                {"Немецкий",    "CNY", "PRG", "MOW", "LED", 30, 40},
+
         };
     }
 
@@ -284,7 +315,7 @@ public class FlightDateTest {
         essPg.clickContinue();//шаг 9
         choosePg.chooseTestStend("9");//шаг 9
         EprPage eprPg = new EprPage();
-        eprPg.checkDataOnPayPage("10", flightList);//шаг 10
+        eprPg.checkDataOnPayPage(flightList);//шаг 10
         eprPg.clickPay();//шаг 11
         new PaymentPage().setCardDetails();//шаг 12
         new ResultPage().checkServicesData(flightList);//шаг 13
@@ -319,7 +350,7 @@ public class FlightDateTest {
         essPg.clickContinue();//шаг 9
         choosePg.chooseTestStend("9");//шаг 9
         EprPage eprPg = new EprPage();
-        eprPg.checkDataOnPayPage("10", flightList);//шаг 10
+        eprPg.checkDataOnPayPage(flightList);//шаг 10
         eprPg.clickPay();//шаг 11
         new PaymentPage().setCardDetails();//шаг 12
         new ResultPage().checkServicesData(flightList);//шаг 13
@@ -354,11 +385,50 @@ public class FlightDateTest {
         essPg.clickContinue();//шаг 9
         choosePg.chooseTestStend("9");//шаг 9
         EprPage eprPg = new EprPage();
-        eprPg.checkDataOnPayPage("10", flightList);//шаг 10
+        eprPg.checkDataOnPayPage(flightList);//шаг 10
         eprPg.clickPay();//шаг 11
         new PaymentPage().setCardDetails();//шаг 12
         new ResultPage().checkServicesData(flightList);//шаг 13
         new OfficePage().checkLog(flightList);//шаг 14
         new SabrePage().checkSabreLog(flightList);//шаг 15
     }
+
+
+    @Title("Сложный маршрут")
+    @Description("Карта VISA;\nБилеты: 1 взрослый;\nДополнительные услуги: «Полетная страховка»")
+    @Test(priority = 4, dataProvider = "parseLocaleData4")
+    public void directionComplex(String locale, String currency, String from, String to, String from2, int days, int backdays) {
+        Values.ln = getLanguageNumber(locale);
+        Values.cur = currency;
+        Values.ticket = 1;
+        System.out.println("==================================================================================" +
+                "\n*** AUTOTEST *** : direction Complex, " + Values.lang[Values.ln][2].toUpperCase() +
+                ", " + currency + ", " + from + "->" + to + ", " + from2 + "->" + from + ", "  + days + "days, " + backdays + "days" +
+                "\n==================================================================================");
+        open(Values.host);
+        SearchPage searchPg = new SearchPage();
+        searchPg.searchFlight4(from, to, from2, days, backdays);//шаг 1
+        List<Flight> flightList = searchPg.selectFlight1();//шаг 2
+        new PassengerPage().step3();//шаг 3
+        new PlacePage().clickPay();//кликнуть Оплатить на странице выбора места
+        ChoosePage choosePg = new ChoosePage();
+        choosePg.step4();//шаг 4(смена валюты) и 5
+        EssPage essPg = new EssPage();
+        essPg.checkEss1(flightList);//шаг 6
+        essPg.checkTransportEss1(flightList);//шаг 7
+        //$(byXpath("//a[@class='cart__item-counter-link']")).click(); // пропуск отелей
+        //Sleep(15);
+        essPg.checkHotelEss1(flightList);//шаг 8
+        essPg.clickContinue();//шаг 9
+        choosePg.chooseTestStend("9");//шаг 9
+        EprPage eprPg = new EprPage();
+        eprPg.checkDataOnPayPage(flightList);//шаг 10
+        eprPg.clickPay();//шаг 11
+        new PaymentPage().setCardDetails();//шаг 12
+        new ResultPage().checkServicesData(flightList);//шаг 13
+        new OfficePage().checkLog(flightList);//шаг 14
+        new SabrePage().checkSabreLog(flightList);//шаг 15
+    }
+
+
 }
