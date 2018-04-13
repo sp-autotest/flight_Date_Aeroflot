@@ -14,9 +14,7 @@ import java.util.Locale;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.open;
-import static config.Values.ln;
 import static org.testng.AssertJUnit.assertTrue;
 
 /**
@@ -26,11 +24,11 @@ public class SabrePage extends Page {
 
 
     @Step("Действие 15, проверка лога Sabre")
-    public void checkSabreLog(List<Flight> flyList) {
+    public void checkSabreLog(List<Flight> flyList, String pnr) {
         System.out.println("\t15. Cheking Sabre log");
         enterSabre();
         clickSessionOpenButton();
-        setCommandField();
+        setCommandField(pnr);
         clickCommandButton();
         String[] info = getSabreInfo();
         for (int i = 0; i < info.length; i++)  checkFlight(i + 1, flyList.get(i), info[i]);
@@ -54,8 +52,8 @@ public class SabrePage extends Page {
     }
 
     @Step("Набрать команду вывода бронирования")
-    private void setCommandField(){
-        $("#CommandRequest").setValue("*" + Values.pnr);
+    private void setCommandField(String pnr){
+        $("#CommandRequest").setValue("*" + pnr);
     }
 
     @Step("Отправить команду")

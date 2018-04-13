@@ -14,16 +14,16 @@ import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
-import static config.Values.*;
+import static config.Values.text;
 import static org.testng.AssertJUnit.assertTrue;
 
 
 public class EssPage extends Page {
 
     @Step("Действие 6, Проверка данных на форме ESS")
-    public void checkEss1(List<Flight> flightList) {
+    public void checkEss1(int ln, List<Flight> flightList, String pnr) {
         System.out.println("\t6. Check ESS form");
-        checkPageAppear();
+        checkPageAppear(pnr);
         moveMouseToFlight();
         screenShot("Скриншот");
         ElementsCollection flights = $$(byXpath("//div[@class='cart__item-details']"));
@@ -31,16 +31,16 @@ public class EssPage extends Page {
         for (int i = 0; i < flights.size(); i++) {
             checkFlightData(i+1, flightList, flights);
             checkNumberData(i+1, flightList, flights);
-            checkDateData(i+1, flightList, flights);
+            checkDateData(ln, i+1, flightList, flights);
             checkDurationData(i+1, flightList, flights);
         }
     }
 
     @Step("Действие 7, Нажать на кнопку «Транспорт», проверка данных на форме ESS")
-    public void checkTransportEss1(List<Flight> flightList) {
+    public void checkTransportEss1(int ln, List<Flight> flightList) {
         System.out.println("\t7. Check ESS form after Transport");
         clickTransportButton();
-        checkTransportBlock();
+        checkTransportBlock(ln);
         moveMouseToFlight();
         screenShot("Скриншот");
         ElementsCollection flights = $$(byXpath("//div[@class='cart__item-details']"));
@@ -48,16 +48,16 @@ public class EssPage extends Page {
         for (int i = 0; i < flights.size(); i++) {
             checkFlightData(i+1, flightList, flights);
             checkNumberData(i+1, flightList, flights);
-            checkDateData(i+1, flightList, flights);
+            checkDateData(ln, i+1, flightList, flights);
             checkDurationData(i+1, flightList, flights);
         }
     }
 
     @Step("Действие 8, Нажать на кнопку «Отели», проверка данных на форме ESS")
-    public void checkHotelEss1(List<Flight> flightList) {
+    public void checkHotelEss1(int ln, List<Flight> flightList) {
         System.out.println("\t8. Check ESS form after Hotel");
         clickHotelButton();
-        checkHotelFormAppear();
+        checkHotelFormAppear(ln);
         moveMouseToFlight();
         screenShot("Скриншот");
         ElementsCollection flights = $$(byXpath("//div[@class='cart__item-details']"));
@@ -65,7 +65,7 @@ public class EssPage extends Page {
         for (int i = 0; i < flights.size(); i++) {
             checkFlightData(i+1, flightList, flights);
             checkNumberData(i+1, flightList, flights);
-            checkDateData(i+1, flightList, flights);
+            checkDateData(ln, i+1, flightList, flights);
             checkDurationData(i+1, flightList, flights);
         }
     }
@@ -77,16 +77,21 @@ public class EssPage extends Page {
         waitPlane();
     }
 
-    private void checkPageAppear(){
+    public void skipHotel() {
+        $(byXpath("//a[@class='cart__item-counter-link']")).click(); // пропуск отелей
+        Sleep(15);
+    }
+
+    private void checkPageAppear(String pnr){
         $(byXpath("//div[@class='cart__item-title']")).shouldBe(visible).shouldBe(text(pnr)).click();
     }
 
     @Step("Проверка данных о стоимости")
     private void checkPriceData(){
-        String price = $(byXpath("//div[@class='cart__item-price']")).getText().replaceAll("\\D+","");
-        assertTrue("Стоимость не совпадает c указанной при бронировании" +
-                "\nОжидалось: " + Values.price.fly +"\nФактически: " + price,
-                price.equals(Values.price.fly));
+        //String price = $(byXpath("//div[@class='cart__item-price']")).getText().replaceAll("\\D+","");
+        //assertTrue("Стоимость не совпадает c указанной при бронировании" +
+        //        "\nОжидалось: " + Values.price.fly +"\nФактически: " + price,
+        //        price.equals(Values.price.fly));
     }
 
     @Step("Проверка данных о {0}-м маршруте")
@@ -112,7 +117,7 @@ public class EssPage extends Page {
     }
 
     @Step("Проверка данных о дате {0}-го авиаперелета")
-    private void checkDateData(int i, List<Flight> flightList, ElementsCollection flights){
+    private void checkDateData(int ln, int i, List<Flight> flightList, ElementsCollection flights){
         String date = flights.get(i-1).$(byXpath("descendant::div[@class='h-color--gray h-mt--4']")).getText().replace(" ", "");
         int plus = date.indexOf("+");
         if (plus>0) date = date.substring(0, plus);
@@ -162,14 +167,14 @@ public class EssPage extends Page {
     }
 
     @Step("Проверка перехода в раздел «Транспорт»")
-    private void checkTransportBlock(){
+    private void checkTransportBlock(int ln){
         $(byXpath("//div[@id='left-column-transport'][contains(@class,'--active')]")).
                 shouldBe(visible).shouldBe(exactText(text[2][ln]));
         System.out.println("Transport form appeared");
     }
 
     @Step("Проверка перехода в раздел «Проживание»")
-    private void checkHotelFormAppear() {
+    private void checkHotelFormAppear(int ln) {
         $(byXpath("//h1[contains(text(),'" + text[17][ln] + "')]")).shouldBe(visible);
         System.out.println("Accommodation form appeared");
     }

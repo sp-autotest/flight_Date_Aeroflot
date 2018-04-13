@@ -1,9 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="TestSuite"  >
-    <test name="Аэрофлот, дата перелета">
+<suite name="Аэрофлот, дата перелета" thread-count="3" parallel="tests" >
+    <listeners>
+        <listener class-name="listeners.MyTransformer" />
+    </listeners>
+
+    <test name="Аэрофлот, кейс1">
         <classes>
             <class name="FlightDateTest">
+                <methods>
+                    <include name="directionFrom" />
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Аэрофлот, кейс2">
+        <classes>
+            <class name="FlightDateTest">
+                <methods>
+                    <include name="directionRoundtrip" />
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Аэрофлот, кейсы 3 и 4">
+        <classes>
+            <class name="FlightDateTest">
+                <methods>
+                    <include name="directionRoundtripTransfer" />
+                    <include name="directionComplex" />
+                </methods>
             </class>
         </classes>
     </test>

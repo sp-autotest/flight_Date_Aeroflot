@@ -15,19 +15,18 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
-import static config.Values.ln;
 import static org.testng.AssertJUnit.assertTrue;
 
 
 public class EprPage extends Page {
 
     @Step("Действие 10, проверка данных на странице оплаты")
-    public void checkDataOnPayPage(List<Flight> flyList) {
+    public void checkDataOnPayPage(int ln, List<Flight> flyList) {
         System.out.println("\t10. Checking data on Pay page");
         screenShot("Скриншот");
         ElementsCollection flights = $$(byXpath("//div[@class='flight__row']"));
         for (int i = 0; i < flights.size(); i++) {
-            checkFlight(i + 1, flyList.get(i), flights.get(i));
+            checkFlight(ln, i + 1, flyList.get(i), flights.get(i));
         }
     }
 
@@ -39,7 +38,7 @@ public class EprPage extends Page {
     }
 
     @Step("Проверка данных о {0}-м маршруте")
-    private void checkFlight(int i, Flight f, SelenideElement flight){
+    private void checkFlight(int ln, int i, Flight f, SelenideElement flight){
         String from = flight.$(byXpath("descendant::div[@class='flight__direction-airport-code ng-binding']")).getText();
         System.out.print(from + " / ");
         assertTrue("Направление «Откуда» в маршруте отличается от забронированного" +

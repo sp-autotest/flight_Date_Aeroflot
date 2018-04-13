@@ -3,15 +3,12 @@ package pages;
 import com.codeborne.selenide.ElementsCollection;
 import config.Values;
 import ru.yandex.qatools.allure.annotations.Step;
-//import soap.SoapRequest;
 
 import static com.codeborne.selenide.Condition.exactText;
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.WebDriverRunner.url;
-import static config.Values.pnr;
 import static org.testng.AssertJUnit.assertTrue;
 
 
@@ -21,12 +18,13 @@ public class ChoosePage extends Page {
 
 
     @Step("Действие 4, выбор стенда")
-    public void step4() {
+    public String step4(String cur) {
         System.out.println("\t4. Choose Test Stend");
-        checkChoosePage();
+        String pnr = checkChoosePage();
         System.out.println("URL = " + url());
-        if ((!Values.cur.equals("RUB"))&(Values.currencyChange.equals("soap"))) changeCurrency();
+        if ((!cur.equals("RUB"))&(Values.currencyChange.equals("soap"))) changeCurrency();
         clickEnvironment();
+        return pnr;
     }
 
     @Step("Действие {0}, выбор стенда")
@@ -39,11 +37,12 @@ public class ChoosePage extends Page {
     }
 
     @Step("Подождать страницу выбора стенда")
-    private void checkChoosePage(){
+    private String checkChoosePage(){
         $("h1").shouldBe(exactText("Вход в тестовую среду системы ЕПР"));
         int start = url().indexOf("&PNR") + 5;
-        pnr = url().substring(start, start + 6);
+        String pnr = url().substring(start, start + 6);
         System.out.println("PNR = " + pnr);
+        return pnr;
     }
 
     @Step("Проверить переход на платёжную страницу ЕПР")

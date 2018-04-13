@@ -21,11 +21,11 @@ import static org.testng.AssertJUnit.assertTrue;
 public class OfficePage extends Page{
 
     @Step("Действие 14, проверка лога АРМ")
-    public void checkLog(List<Flight> flyList) {
+    public void checkLog(List<Flight> flyList, String pnr) {
         System.out.println("\t14. Checking log in office ESS");
         authorization();
-        searchOrder(Values.pnr);
-        openOrderDetails(Values.pnr, flyList);
+        searchOrder(pnr);
+        openOrderDetails(pnr, flyList);
     }
 
     @Step("Авторизоваться в АРМ ESS")

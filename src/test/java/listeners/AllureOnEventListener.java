@@ -1,6 +1,5 @@
 package listeners;
 
-import config.Values;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;

@@ -17,7 +17,7 @@ import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static config.Values.lang;
-import static config.Values.ln;
+
 
 public class SearchPage extends Page {
 
@@ -27,8 +27,8 @@ public class SearchPage extends Page {
     String duration = "";
 
     @Step("Действие 1, поиск рейсов")
-    public void searchFlight1(String from, String to, int days) {
-        selectLocale();
+    public void searchFlight1(int ln, String from, String to, int days) {
+        selectLocale(ln);
         setFrom(from);
         setTo(to);
         dateThere = addMonthAndDays(0,days);
@@ -37,8 +37,8 @@ public class SearchPage extends Page {
     }
 
     @Step("Действие 1, поиск рейсов")
-    public void searchFlight2(String from, String to, int days, int backdays) {
-        selectLocale();
+    public void searchFlight2(int ln, String from, String to, int days, int backdays) {
+        selectLocale(ln);
         setFrom(from);
         setTo(to);
         dateThere = addMonthAndDays(0,days);
@@ -49,8 +49,8 @@ public class SearchPage extends Page {
     }
 
     @Step("Действие 1, поиск рейсов")
-    public void searchFlight4(String from, String to, String from2, int days, int backdays) {
-        selectLocale();
+    public void searchFlight4(int ln, String from, String to, String from2, int days, int backdays) {
+        selectLocale(ln);
         setFrom(from);
         setTo(to);
         dateThere = addMonthAndDays(0,days);
@@ -96,7 +96,7 @@ public class SearchPage extends Page {
     }
 
     @Step("Выбрать язык: {0}")
-    private void selectLocale() {
+    private void selectLocale(int ln) {
         if (getWebDriver().manage().window().getSize().getWidth() < 1280) {
             $(byXpath("//div[@class='header__menu-icon']/..")).shouldBe(visible).click();
         }
@@ -215,8 +215,8 @@ public class SearchPage extends Page {
     }
 
     private void saveFlightData(int dir) {
-        Values.price.fly = $(byXpath("//div[@class='cart__item-price js-popover']")).getText().replaceAll("\\D+","");
-        System.out.println("Fly price = " + Values.price.fly);
+//        Values.price.fly = $(byXpath("//div[@class='cart__item-price js-popover']")).getText().replaceAll("\\D+","");
+//        System.out.println("Fly price = " + Values.price.fly);
         Flight f;
         String d;
         ElementsCollection groups = $$(byXpath("//div[@class='flight-search flight-search--active']"));

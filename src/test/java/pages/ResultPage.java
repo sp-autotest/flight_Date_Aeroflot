@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Locale;
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$$;
-import static config.Values.*;
 import static org.testng.AssertJUnit.assertTrue;
 
 
@@ -18,23 +17,23 @@ public class ResultPage extends Page {
 
 
     @Step("Действие 13, проверка страницы результатов оплаты")
-    public void checkServicesData(List<Flight> flyList) {
+    public void checkServicesData(int ln, List<Flight> flyList) {
         System.out.println("\t13. Cheking final page with pay result");
         ElementsCollection flights = $$(byXpath("//div[@class='row flight-booking__row']"));
         System.out.println(flights.size() + " flights found");
         for (int i = 0; i < flights.size(); i++) {
-            checkFlight(i + 1, flyList.get(i), flights.get(i));
+            checkFlight(i + 1, flyList.get(i), flights.get(i), ln);
         }
         ElementsCollection ways = $$(byXpath("//div[@class='flight-booking__group']"));
         System.out.println(ways.size() + " ways found");
         int k = (flights.size() == 2) ? 1 : 2;
         for (int i = 0; i < ways.size(); i++) {
-            checkFlightDate(i + 1, flyList.get(i * k), ways.get(i));
+            checkFlightDate(i + 1, flyList.get(i * k), ways.get(i), ln);
         }
     }
 
     @Step("Проверка данных о {0}-м маршруте")
-    private void checkFlight(int i, Flight f, SelenideElement flight){
+    private void checkFlight(int i, Flight f, SelenideElement flight, int ln){
         String from = flight.$(byXpath("descendant::div[@class='time-destination__from']/div[@class='time-destination__airport']")).getText();
         System.out.print(from + " / ");
         assertTrue("Направление «Откуда» в маршруте отличается от забронированного" +
@@ -81,7 +80,7 @@ public class ResultPage extends Page {
     }
 
     @Step("Проверка даты в {0}-м перелете")
-    private void checkFlightDate(int i, Flight f, SelenideElement flight){
+    private void checkFlightDate(int i, Flight f, SelenideElement flight, int ln){
         String date = flight.$(byXpath("descendant::div[@class='flight-booking__day-title']")).getText();
         date = date.substring(0, date.indexOf(",")).trim();
         System.out.println(date);

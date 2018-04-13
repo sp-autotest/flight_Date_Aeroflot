@@ -8,8 +8,6 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.WebDriverRunner.url;
-import static config.Values.ln;
-import static config.Values.pnr;
 import static config.Values.text;
 import static org.testng.AssertJUnit.assertTrue;
 
@@ -17,7 +15,7 @@ import static org.testng.AssertJUnit.assertTrue;
 public class PaymentPage extends Page {
 
     @Step("Действие 12, Ввод реквизитов карточки и оплата")
-    public void setCardDetails() {
+    public void setCardDetails(int ln, String pnr) {
         System.out.println("\t12. Filling bank card details and click Pay");
         setPan();
         setOwner();
@@ -25,8 +23,8 @@ public class PaymentPage extends Page {
         setYear();
         setCVC();
         clickPayButton();
-        checkPaySuccessfull();
-        checkResultPageAppear();
+        checkPaySuccessfull(ln);
+        checkResultPageAppear(ln, pnr);
     }
 
     @Step("Заполнить поле \"Номер карты\"")
@@ -60,14 +58,14 @@ public class PaymentPage extends Page {
     }
 
     @Step("Проверить сообщение об успешной оплате")
-    private void checkPaySuccessfull() {
+    private void checkPaySuccessfull(int ln) {
         String text = $(byXpath("//div[contains(@translate,'paymentSuccessful')]")).shouldBe(visible).getText();
         System.out.println("SUCCESS = " + text);
         assertTrue("Сообщение об успешной оплате отсутствует", text.equals(Values.text[11][ln]));
     }
 
     @Step("Проверить появление страницы результатов оплаты")
-    private void checkResultPageAppear(){
+    private void checkResultPageAppear(int ln, String pnr){
         Sleep(25);
         $(byXpath("//div[contains(@class,'text text--bold')]")).shouldBe(visible).shouldBe(exactText(pnr));
         System.out.println("URL = " + url());

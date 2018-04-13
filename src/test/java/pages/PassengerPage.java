@@ -19,7 +19,7 @@ import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static com.codeborne.selenide.WebDriverRunner.url;
 import static config.Values.lang;
-import static config.Values.ln;
+
 
 
 public class PassengerPage extends Page {
@@ -27,10 +27,10 @@ public class PassengerPage extends Page {
     List<Passenger> passengerList = new ArrayList<Passenger>();
 
     @Step("Действие 3, информация о пассажирах")
-    public List<Passenger> step3() {
+    public List<Passenger> step3(int ln, String cur) {
         checkPageAppear();
-        if ((!Values.cur.equals("RUB"))&(Values.currencyChange.equals("link"))) currencyChange(Values.cur);
-        fillPassengerData();
+        if ((!cur.equals("RUB"))&(Values.currencyChange.equals("link"))) currencyChange(cur);
+        fillPassengerData(ln);
         setEmail();
         setPhone();
         setTerms();
@@ -51,15 +51,15 @@ public class PassengerPage extends Page {
     }
 
     @Step("Заполнить данные пассажира")
-    private void fillPassengerData(){
+    private void fillPassengerData(int ln){
         Passenger p = new Passenger();
         p.gender = setRandomGender();
         p.lastname = setRandomLastName();
         p.firstname = setRandomFirstName();
         p.dob = setDOB();
         p.number = setRandomNumber();
-        setNationality();
-        setСountry();
+        setNationality(ln);
+        setСountry(ln);
         clickUnlimitedLink();
         passengerList.add(p);
     }
@@ -94,13 +94,13 @@ public class PassengerPage extends Page {
     }
 
     @Step("Указать гражданство")
-    private void setNationality(){
+    private void setNationality(int ln){
         SelenideElement el = $$(byXpath("descendant::input[@role='listbox']")).get(0);
         while(!el.getValue().equals(lang[ln][4])) el.setValue(lang[ln][4]);
     }
 
     @Step("Указать страну выдачи")
-    private void setСountry(){
+    private void setСountry(int ln){
         SelenideElement el = $$(byXpath("descendant::input[@role='listbox']")).get(1);
         while(!el.getValue().equals(lang[ln][4])) el.setValue(lang[ln][4]);
     }
@@ -128,7 +128,6 @@ public class PassengerPage extends Page {
         String phone = getRandomNumberString(10);
         SelenideElement block = $(byXpath("//div[contains(@class,'--icon-contacts')]/following-sibling::div"));
         block.$$(byXpath("descendant::input[@type='text']")).get(1).setValue(phone);
-        Values.phone = phone;
     }
 
     @Step("Согласиться с правилами")

@@ -1,15 +1,7 @@
 package config;
 
-import struct.Price;
-
 public class Values {
 
-    public static int ln = 0;
-    public static int ticket;
-    public static String pnr = null;
-    public static String cur = null;
-    public static String phone = "";
-    public static Price price = new Price();
     public static String currencyChange = "link"; //параметр определяет метод смены валюты.
                                                   //Возможные значения:
                                                   //    link - с помощью подмены параметров в линке
