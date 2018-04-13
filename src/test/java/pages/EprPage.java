@@ -11,6 +11,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
@@ -23,8 +25,15 @@ public class EprPage extends Page {
     @Step("Действие 10, проверка данных на странице оплаты")
     public void checkDataOnPayPage(int ln, List<Flight> flyList) {
         System.out.println("\t10. Checking data on Pay page");
+        ElementsCollection flights = null;
+        for (int i=0; i<20; i++) {
+            Sleep(1);
+            flights = $$(byXpath("//div[@class='flight__row']"));
+            if (flights.size()>0) break;
+            assertTrue("Не обнаружено данных о перелете на странице оплаты", i!=19);
+        }
         screenShot("Скриншот");
-        ElementsCollection flights = $$(byXpath("//div[@class='flight__row']"));
+        System.out.println("Records = " + flights.size());
         for (int i = 0; i < flights.size(); i++) {
             checkFlight(ln, i + 1, flyList.get(i), flights.get(i));
         }
@@ -36,6 +45,7 @@ public class EprPage extends Page {
         clickPayButton();
         checkPaymentAppeared();
     }
+
 
     @Step("Проверка данных о {0}-м маршруте")
     private void checkFlight(int ln, int i, Flight f, SelenideElement flight){

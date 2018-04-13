@@ -28,6 +28,7 @@ public class PassengerPage extends Page {
 
     @Step("Действие 3, информация о пассажирах")
     public List<Passenger> step3(int ln, String cur) {
+        System.out.println("\t3. Set Passengers info");
         checkPageAppear();
         if ((!cur.equals("RUB"))&(Values.currencyChange.equals("link"))) currencyChange(cur);
         fillPassengerData(ln);

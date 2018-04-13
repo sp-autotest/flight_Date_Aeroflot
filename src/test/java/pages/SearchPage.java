@@ -28,6 +28,7 @@ public class SearchPage extends Page {
 
     @Step("Действие 1, поиск рейсов")
     public void searchFlight1(int ln, String from, String to, int days) {
+        System.out.println("\t1. Search flight");
         selectLocale(ln);
         setFrom(from);
         setTo(to);
@@ -38,6 +39,7 @@ public class SearchPage extends Page {
 
     @Step("Действие 1, поиск рейсов")
     public void searchFlight2(int ln, String from, String to, int days, int backdays) {
+        System.out.println("\t1. Search flight");
         selectLocale(ln);
         setFrom(from);
         setTo(to);
@@ -50,6 +52,7 @@ public class SearchPage extends Page {
 
     @Step("Действие 1, поиск рейсов")
     public void searchFlight4(int ln, String from, String to, String from2, int days, int backdays) {
+        System.out.println("\t1. Search flight");
         selectLocale(ln);
         setFrom(from);
         setTo(to);
@@ -66,6 +69,7 @@ public class SearchPage extends Page {
 
     @Step("Действие 2, выбор рейсов")
     public List<Flight> selectFlight1() {
+        System.out.println("\t2. Select flight");
         selectSimpleFlight(1); // 1 - полет в одну сторону, туда
         clickBuyButton();
         saveFlightData(1); // 1 - сохранить данные только одного направления
@@ -75,6 +79,7 @@ public class SearchPage extends Page {
 
     @Step("Действие 2, выбор рейсов")
     public List<Flight> selectFlight2() {
+        System.out.println("\t2. Select flight");
         selectSimpleFlight(1); // 2 - полет туда
         clickBuyButton();
         selectSimpleFlight(2); // 2 - полет обратно
@@ -86,6 +91,7 @@ public class SearchPage extends Page {
 
     @Step("Действие 2, выбор рейсов")
     public List<Flight> selectFlight3() {
+        System.out.println("\t2. Select flight");
         selectTransferFlight(1); // 2 - полет туда
         clickBuyButton();
         selectTransferFlight(2); // 2 - полет обратно

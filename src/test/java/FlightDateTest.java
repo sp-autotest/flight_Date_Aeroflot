@@ -27,10 +27,7 @@ import static pages.Page.stringIntoInt;
 @Listeners({AllureOnEventListener.class})  //"слушатель" для Allure-отчета
 public class FlightDateTest {
 
-
     private String browserName = "chrome";//браузер, по умолчанию хром
-    private int browserWidth = 1920;//ширина окна браузера, по умолчанию 1920
-    private int browserHight = 1080;//высота окна браузера, по умолчанию 1080
 
     @BeforeClass/* Метод, выполняющийся перед началом тест-сьюта */
     public void begin() {
@@ -38,8 +35,8 @@ public class FlightDateTest {
         tng.setAnnotationTransformer(new MyTransformer());
         browserName = System.getProperty("browser", "chrome");//получить имя браузера из дженкинса, при неудаче браузер=хром
         String res = System.getProperty("resolution", "1920x1080");//получить разрешение браузера из дженкинса, при неудаче разрешение=1920x1080
-        browserWidth = stringIntoInt(res.substring(0, res.indexOf("x")));//взять ширину браузера из строки с разрешением
-        browserHight = stringIntoInt(res.substring(res.indexOf("x")+1));//взять высоту браузера из строки с разрешением
+        int browserWidth = stringIntoInt(res.substring(0, res.indexOf("x")));//взять ширину браузера из строки с разрешением
+        int browserHight = stringIntoInt(res.substring(res.indexOf("x")+1));//взять высоту браузера из строки с разрешением
         System.out.println("\nBrowser = " + browserName);//вывести в лог значение имени браузера
         System.out.println("Resolution = " + res);//вывести в лог значение разрешения
         Values.office_login = System.getProperty("officelogin", "any");//получить логин АРМ ESS из дженкинса
@@ -267,9 +264,9 @@ public class FlightDateTest {
                 {"Китайский",   "USD", "PRG", "MOW", "LED", 20, 30},
                 {"Английский",  "USD", "PRG", "MOW", "LED", 20, 30},
                 {"Корейский",   "RUB", "PRG", "MOW", "LED", 20, 30},
-                {"Русский",     "RUB", "PRG", "MOW", "LED", 20, 30},
+                */{"Русский",     "RUB", "PRG", "MOW", "LED", 20, 30},/*
                 {"Немецкий",    "RUB", "PRG", "MOW", "LED", 20, 30},
-                */{"Русский",     "CNY", "PRG", "MOW", "LED", 20, 30},/*
+                {"Русский",     "CNY", "PRG", "MOW", "LED", 20, 30},
                 {"Китайский",   "CNY", "PRG", "MOW", "LED", 20, 30},
                 {"Немецкий",    "CNY", "PRG", "MOW", "LED", 20, 30},
 
@@ -294,7 +291,6 @@ public class FlightDateTest {
     @Test(priority = 1, dataProvider = "parseLocaleData1", groups = {"case1"})
     public void directionFrom(String locale, String currency, String from, String to, int days) {
         int ln = getLanguageNumber(locale);
-
         System.out.println("============================================================"+
                 "\n*** AUTOTEST *** : direction From, " + Values.lang[ln][2].toUpperCase()+
                 ", " + currency + ", " + from + "->" + to + ", " + days +"days" +
@@ -311,9 +307,9 @@ public class FlightDateTest {
         essPg.checkEss1(ln, flightList, pnr);//шаг 6
         essPg.checkTransportEss1(ln, flightList);//шаг 7
 
-        essPg.skipHotel();
-        //essPg.checkHotelEss1(ln, flightList);//шаг 8
-        //essPg.clickContinue();//шаг 9
+        //essPg.skipHotel();
+        essPg.checkHotelEss1(ln, flightList);//шаг 8
+        essPg.clickContinue();//шаг 9
 
         choosePg.chooseTestStend("9");//шаг 9
         EprPage eprPg = new EprPage();
@@ -347,9 +343,9 @@ public class FlightDateTest {
         essPg.checkEss1(ln, flightList, pnr);//шаг 6
         essPg.checkTransportEss1(ln, flightList);//шаг 7
 
-        essPg.skipHotel();
-        //essPg.checkHotelEss1(ln, flightList);//шаг 8
-        //essPg.clickContinue();//шаг 9
+        //essPg.skipHotel();
+        essPg.checkHotelEss1(ln, flightList);//шаг 8
+        essPg.clickContinue();//шаг 9
 
         choosePg.chooseTestStend("9");//шаг 9
         EprPage eprPg = new EprPage();
@@ -383,9 +379,9 @@ public class FlightDateTest {
         essPg.checkEss1(ln, flightList, pnr);//шаг 6
         essPg.checkTransportEss1(ln, flightList);//шаг 7
 
-        essPg.skipHotel();
-        //essPg.checkHotelEss1(ln, flightList);//шаг 8
-        //essPg.clickContinue();//шаг 9
+        //essPg.skipHotel();
+        essPg.checkHotelEss1(ln, flightList);//шаг 8
+        essPg.clickContinue();//шаг 9
 
         choosePg.chooseTestStend("9");//шаг 9
         EprPage eprPg = new EprPage();
@@ -419,9 +415,9 @@ public class FlightDateTest {
         essPg.checkEss1(ln, flightList, pnr);//шаг 6
         essPg.checkTransportEss1(ln, flightList);//шаг 7
 
-        essPg.skipHotel();
-        //essPg.checkHotelEss1(ln, flightList);//шаг 8
-        //essPg.clickContinue();//шаг 9
+        //essPg.skipHotel();
+        essPg.checkHotelEss1(ln, flightList);//шаг 8
+        essPg.clickContinue();//шаг 9
 
         choosePg.chooseTestStend("9");//шаг 9
         EprPage eprPg = new EprPage();

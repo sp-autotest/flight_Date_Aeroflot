@@ -9,6 +9,7 @@ public class PlacePage extends Page {
 
     @Step("Кликнуть \"Оплатить\" на странице выбора места")
     public void clickPay() {
+        System.out.println("\tn. Click Pay on select place page");
         for (int i=0; i<30; i++) {
             if ($$(byXpath("//div[@class='text text--inline']")).size()>0){
                 Sleep(1);

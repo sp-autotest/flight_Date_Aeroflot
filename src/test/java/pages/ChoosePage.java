@@ -33,7 +33,7 @@ public class ChoosePage extends Page {
         $("h1").shouldBe(exactText("Вход в тестовую среду системы ЕПР"));
         System.out.println("URL = " + url());
         clickEnvironment();
-        checkEprPageAppear();
+        checkEprPageRedirect();
     }
 
     @Step("Подождать страницу выбора стенда")
@@ -46,7 +46,7 @@ public class ChoosePage extends Page {
     }
 
     @Step("Проверить переход на платёжную страницу ЕПР")
-    private void checkEprPageAppear(){
+    private void checkEprPageRedirect(){
         String epr = "https://pay.test.aeroflot.ru/test-" + env.toLowerCase() + "/aeropayment/epr/payment2.html";
         assertTrue("URL платежной страницы ЕПР не соответствует эталону", url().contains(epr));
     }
