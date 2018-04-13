@@ -93,7 +93,7 @@ public class FlightDateTest {
                 {"Китайский",   "USD", "MOW", "PRG", 20},
                 {"Английский",  "USD", "MOW", "PRG", 20},
                 {"Корейский",   "RUB", "MOW", "PRG", 20},
-                {"Русский",     "RUB", "MOW", "PRG", 20},/*
+                {"Русский",     "RUB", "MOW", "PRG", 20},
                 {"Немецкий",    "RUB", "MOW", "PRG", 20},
                 {"Русский",     "CNY", "MOW", "PRG", 20},
                 {"Китайский",   "CNY", "MOW", "PRG", 20},
@@ -149,7 +149,7 @@ public class FlightDateTest {
                 {"Немецкий",    "RUB", "MOW", "PRG", 60},
                 {"Русский",     "CNY", "MOW", "PRG", 60},
                 {"Китайский",   "CNY", "MOW", "PRG", 60},
-                {"Немецкий",    "CNY", "MOW", "PRG", 60},*/
+                {"Немецкий",    "CNY", "MOW", "PRG", 60},
         };
     }
 
@@ -167,7 +167,7 @@ public class FlightDateTest {
                 {"Немецкий",    "RUB", "MOW", "BKK", 25, 35},
                 {"Русский",     "CNY", "MOW", "BKK", 25, 35},
                 {"Китайский",   "CNY", "MOW", "BKK", 25, 35},
-                {"Немецкий",    "CNY", "MOW", "BKK", 25, 35},/*
+                {"Немецкий",    "CNY", "MOW", "BKK", 25, 35},
 
                 {"Французский", "EUR", "MOW", "BKK", 35, 45},
                 {"Испанский",   "EUR", "MOW", "BKK", 35, 45},
@@ -206,7 +206,7 @@ public class FlightDateTest {
                 {"Немецкий",    "RUB", "MOW", "BKK", 55, 65},
                 {"Русский",     "CNY", "MOW", "BKK", 55, 65},
                 {"Китайский",   "CNY", "MOW", "BKK", 55, 65},
-                {"Немецкий",    "CNY", "MOW", "BKK", 55, 65}*/
+                {"Немецкий",    "CNY", "MOW", "BKK", 55, 65}
         };
     }
 
@@ -224,7 +224,7 @@ public class FlightDateTest {
                 {"Немецкий",    "RUB", "VIE", "LED", 27, 47},
                 {"Русский",     "CNY", "VIE", "LED", 27, 47},
                 {"Китайский",   "CNY", "VIE", "LED", 27, 47},
-                {"Немецкий",    "CNY", "VIE", "LED", 27, 47},/*
+                {"Немецкий",    "CNY", "VIE", "LED", 27, 47},
 
                 {"Французский", "EUR", "VIE", "LED", 37, 57},
                 {"Испанский",   "EUR", "VIE", "LED", 37, 57},
@@ -250,7 +250,7 @@ public class FlightDateTest {
                 {"Немецкий",    "RUB", "VIE", "LED", 47, 67},
                 {"Русский",     "CNY", "VIE", "LED", 47, 67},
                 {"Китайский",   "CNY", "VIE", "LED", 47, 67},
-                {"Немецкий",    "CNY", "VIE", "LED", 47, 67}*/
+                {"Немецкий",    "CNY", "VIE", "LED", 47, 67}
         };
     }
 
@@ -268,7 +268,7 @@ public class FlightDateTest {
                 {"Немецкий",    "RUB", "PRG", "MOW", "LED", 20, 30},
                 {"Русский",     "CNY", "PRG", "MOW", "LED", 20, 30},
                 {"Китайский",   "CNY", "PRG", "MOW", "LED", 20, 30},
-                {"Немецкий",    "CNY", "PRG", "MOW", "LED", 20, 30},/*
+                {"Немецкий",    "CNY", "PRG", "MOW", "LED", 20, 30},
 
                 {"Французский", "EUR", "PRG", "MOW", "LED", 30, 40},
                 {"Испанский",   "EUR", "PRG", "MOW", "LED", 30, 40},
@@ -281,7 +281,7 @@ public class FlightDateTest {
                 {"Немецкий",    "RUB", "PRG", "MOW", "LED", 30, 40},
                 {"Русский",     "CNY", "PRG", "MOW", "LED", 30, 40},
                 {"Китайский",   "CNY", "PRG", "MOW", "LED", 30, 40},
-                {"Немецкий",    "CNY", "PRG", "MOW", "LED", 30, 40},*/
+                {"Немецкий",    "CNY", "PRG", "MOW", "LED", 30, 40},
 
         };
     }
@@ -298,7 +298,7 @@ public class FlightDateTest {
         open(Values.host);
         SearchPage searchPg = new SearchPage();
         searchPg.searchFlight1(ln, from, to, days);//шаг 1
-        List<Flight> flightList = searchPg.selectFlight1();//шаг 2
+        List<Flight> flightList = searchPg.selectFlight1(ln);//шаг 2
         new PassengerPage().step3(ln, currency);//шаг 3
         new PlacePage().clickPay();//кликнуть Оплатить на странице выбора места
         ChoosePage choosePg = new ChoosePage();
@@ -334,7 +334,7 @@ public class FlightDateTest {
         open(Values.host);
         SearchPage searchPg = new SearchPage();
         searchPg.searchFlight2(ln, from, to, days, backdays);//шаг 1
-        List<Flight> flightList = searchPg.selectFlight2();//шаг 2
+        List<Flight> flightList = searchPg.selectFlight2(ln);//шаг 2
         new PassengerPage().step3(ln, currency);//шаг 3
         new PlacePage().clickPay();//кликнуть Оплатить на странице выбора места
         ChoosePage choosePg = new ChoosePage();
@@ -370,7 +370,7 @@ public class FlightDateTest {
         open(Values.host);
         SearchPage searchPg = new SearchPage();
         searchPg.searchFlight2(ln, from, to, days, backdays);//шаг 1
-        List<Flight> flightList = searchPg.selectFlight3();//шаг 2
+        List<Flight> flightList = searchPg.selectFlight3(ln);//шаг 2
         new PassengerPage().step3(ln, currency);//шаг 3
         new PlacePage().clickPay();//кликнуть Оплатить на странице выбора места
         ChoosePage choosePg = new ChoosePage();
@@ -406,7 +406,7 @@ public class FlightDateTest {
         open(Values.host);
         SearchPage searchPg = new SearchPage();
         searchPg.searchFlight4(ln, from, to, from2, days, backdays);//шаг 1
-        List<Flight> flightList = searchPg.selectFlight1();//шаг 2
+        List<Flight> flightList = searchPg.selectFlight1(ln);//шаг 2
         new PassengerPage().step3(ln, currency);//шаг 3
         new PlacePage().clickPay();//кликнуть Оплатить на странице выбора места
         ChoosePage choosePg = new ChoosePage();

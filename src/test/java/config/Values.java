@@ -19,15 +19,15 @@ public class Values {
     };
 
     public static String lang[][] = {
-        {"Русский", "русский", "ru", "ddMMMMyyyy,HH:mm→", "Россия", "d MMMM yyyy г."},
-        {"Английский", "english", "en", "ddMMMyyyy,HH:mm→", "Russia", "MMMM d"},
-        {"Немецкий", "deutsch", "de", "ddMMMyyyy,HH:mm→", "Russland", "d. MMMM yyyy"},
-        {"Испанский", "español", "es", "ddMMMyyyy,HH:mm→", "Rusia", "d 'de' MMMM 'de' yyyy"},
-        {"Итальянский", "italiano", "it", "ddMMMyyyy,HH:mm→", "Russia", "dd MMMM yyyy"},
-        {"Французский", "le français", "fr", "ddMMMyyyy,HH:mm→", "Russie", "d MMMM yyyy"},
-        {"Китайский", "中文", "zh", "ddM月yyyy,HH:mm→", "俄罗斯", "yyyy MMMM d"},
-        {"Корейский", "한국어", "ko", "ddMMMyyyy,HH:mm→", "러시아", "yyyy년 MMMM d일 "},
-        {"Японский", "日本語", "ja", "ddMMMMyyyy,HH:mm→", "ロシア", "yyyy年MMMMd日"},
+        {"Русский",     "русский",     "ru", "ddMMMMyyyy,HH:mm→", "Россия",   "d MMMM yyyy г.",        "dd MMMM yyyy г."},
+        {"Английский",  "english",     "en", "ddMMMyyyy,HH:mm→",  "Russia",   "MMMM d",                "MMMM dd, yyyy"},
+        {"Немецкий",    "deutsch",     "de", "ddMMMyyyy,HH:mm→",  "Russland", "d. MMMM yyyy",          "E, d. MMMM yyyy"},
+        {"Испанский",   "español",     "es", "ddMMMyyyy,HH:mm→",  "Rusia",    "d 'de' MMMM 'de' yyyy", "E, d 'de' MMMM 'de' yyyy"},
+        {"Итальянский", "italiano",    "it", "ddMMMyyyy,HH:mm→",  "Russia",   "dd MMMM yyyy",          "E, d MMMM yyyy"},
+        {"Французский", "le français", "fr", "ddMMMyyyy,HH:mm→",  "Russie",   "d MMMM yyyy",           "E d MMMM yyyy"},
+        {"Китайский",   "中文",         "zh", "ddM月yyyy,HH:mm→",  "俄罗斯",    "yyyy MMMM d",           "E, yyyy MMMM dd"},
+        {"Корейский",   "한국어",       "ko", "ddMMMyyyy,HH:mm→",  "러시아",     "yyyy년 MMMM d일 ",      "yyyy년 MMMM d일 E"},
+        {"Японский",    "日本語",       "ja", "ddMMMMyyyy,HH:mm→", "ロシア",    "yyyy年MMMMd日",         "yyyy年MMMMd日 E"},
     };
 
     public static String text[][] = {

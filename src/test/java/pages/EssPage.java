@@ -24,7 +24,9 @@ public class EssPage extends Page {
     public void checkEss1(int ln, List<Flight> flightList, String pnr) {
         System.out.println("\t6. Check ESS form");
         checkPageAppear(pnr);
-        moveMouseToFlight();
+        if (getWebDriver().manage().window().getSize().getWidth() < 1280) {
+            //$(byXpath("//div[@class='header__menu-icon']/..")).shouldBe(visible).click();
+        }else moveMouseToFlight();
         screenShot("Скриншот");
         ElementsCollection flights = $$(byXpath("//div[@class='cart__item-details']"));
         //checkPriceData();

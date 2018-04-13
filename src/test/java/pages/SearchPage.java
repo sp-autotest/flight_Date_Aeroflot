@@ -7,16 +7,15 @@ import ru.yandex.qatools.allure.annotations.Step;
 import struct.Flight;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static config.Values.lang;
+
 
 
 public class SearchPage extends Page {
@@ -68,35 +67,35 @@ public class SearchPage extends Page {
     }
 
     @Step("Действие 2, выбор рейсов")
-    public List<Flight> selectFlight1() {
+    public List<Flight> selectFlight1(int ln) {
         System.out.println("\t2. Select flight");
         selectSimpleFlight(1); // 1 - полет в одну сторону, туда
         clickBuyButton();
-        saveFlightData(1); // 1 - сохранить данные только одного направления
+        saveFlightData(ln, 1); // 1 - сохранить данные только одного направления
         clickPassengersButton();
         return flightList;
     }
 
     @Step("Действие 2, выбор рейсов")
-    public List<Flight> selectFlight2() {
+    public List<Flight> selectFlight2(int ln) {
         System.out.println("\t2. Select flight");
         selectSimpleFlight(1); // 2 - полет туда
         clickBuyButton();
         selectSimpleFlight(2); // 2 - полет обратно
         clickBuyButton();
-        saveFlightData(2); // 2 - сохранить данные двух направлений
+        saveFlightData(ln, 2); // 2 - сохранить данные двух направлений
         clickPassengersButton();
         return flightList;
     }
 
     @Step("Действие 2, выбор рейсов")
-    public List<Flight> selectFlight3() {
+    public List<Flight> selectFlight3(int ln) {
         System.out.println("\t2. Select flight");
         selectTransferFlight(1); // 2 - полет туда
         clickBuyButton();
         selectTransferFlight(2); // 2 - полет обратно
         clickBuyButton();
-        saveFlightData(2); // 2 - сохранить данные двух направлений
+        saveFlightData(ln, 2); // 2 - сохранить данные двух направлений
         clickPassengersButton();
         return flightList;
     }
@@ -220,15 +219,14 @@ public class SearchPage extends Page {
         return new java.text.SimpleDateFormat("ddMMyyyy").format(cal.getTime());
     }
 
-    private void saveFlightData(int dir) {
-//        Values.price.fly = $(byXpath("//div[@class='cart__item-price js-popover']")).getText().replaceAll("\\D+","");
-//        System.out.println("Fly price = " + Values.price.fly);
+    private void saveFlightData(int ln, int dir) {
         Flight f;
         String d;
         ElementsCollection groups = $$(byXpath("//div[@class='flight-search flight-search--active']"));
         for (int m=0; m < dir; m++) { //цикл перебора направлений полета, максимум 2: туда и обратно
             ElementsCollection flights = groups.get(m).$$(byXpath("descendant::div[@class='row flight-search__flights']"));
-            for (int i = 0; i < flights.size(); i++) { //цикл перебора маршрутов, максимум что видел - два
+            System.out.println("Flights in group = " + flights.size());
+            for (int i = 0; i < flights.size(); i++) { //цикл перебора маршрутов
                 ElementsCollection el = flights.get(i).$$(byXpath("child::*"));
                 if (el.size() < 3) {
                     SelenideElement trans = flights.get(i).$(byXpath("descendant::div[@class='flight-search__transfer']/span"));
@@ -236,13 +234,14 @@ public class SearchPage extends Page {
                     if (trans.getAttribute("class").equals("h-color--orange")) {
                         /*если это сложный маршрут, необходимо занести оранжевую дату обратного
                         вылета в уже записанную в List дату второго маршрута */
-                        f = flightList.get(i-1);
-                        d = dateBack + " " + flights.get(i-1).$(byXpath("descendant::div[@class='time-destination__from']/div[@class='time-destination__time']")).getText();
+                        f = flightList.get(flightList.size()-1);
+                        String orangeDate = new java.text.SimpleDateFormat("ddMMyyyy").format(sTd(ln, trans.getText()));
+                        d = orangeDate + " " + flights.get(i-1).$(byXpath("descendant::div[@class='time-destination__from']/div[@class='time-destination__time']")).getText();
                         f.start = stringToDate(d);
-                        d = dateBack + " " + flights.get(i-1).$(byXpath("descendant::div[@class='time-destination__to']/div[@class='time-destination__time']")).getText();
+                        d = orangeDate + " " + flights.get(i-1).$(byXpath("descendant::div[@class='time-destination__to']/div[@class='time-destination__time']")).getText();
                         f.end = stringToDate(d);
-                        flightList.set(i-1, f);
-                        m=1;//поменять номер направления на "обратно", чтобы в последующих маршрутах сохранять dateBack
+                        flightList.set(flightList.size()-1, f);
+                        dateThere = orangeDate;
                     } else {
                         /*если это пересадка - сохранить ее в текущем маршруте*/
                         String transfer = trans.getText();
@@ -316,5 +315,14 @@ public class SearchPage extends Page {
         }
     }
 
+    private Date sTd(int ln, String d) {
+        Date parsingDate=null;
+        try {
+            parsingDate = new SimpleDateFormat(Values.lang[ln][6], new Locale(Values.lang[ln][2])).parse(d);
+        }catch (ParseException e) {
+            System.out.println("Parsing date error");
+        }
+        return parsingDate;
+    }
 
 }
