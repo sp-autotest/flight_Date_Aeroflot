@@ -232,6 +232,7 @@ public class SearchPage extends Page {
                 ElementsCollection el = flights.get(i).$$(byXpath("child::*"));
                 if (el.size() < 3) {
                     SelenideElement trans = flights.get(i).$(byXpath("descendant::div[@class='flight-search__transfer']/span"));
+                    System.out.println("TRANS = " + trans.getText());
                     if (trans.getAttribute("class").equals("h-color--orange")) {
                         /*если это сложный маршрут, необходимо занести оранжевую дату обратного
                         вылета в уже записанную в List дату второго маршрута */
