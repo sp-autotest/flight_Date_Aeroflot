@@ -304,14 +304,14 @@ public class FlightDateTest {
         ChoosePage choosePg = new ChoosePage();
         String pnr = choosePg.step4(currency);//шаг 4(смена валюты) и 5
         EssPage essPg = new EssPage();
-        essPg.checkEss1(ln, flightList, pnr);//шаг 6
+        essPg.checkEss(ln, flightList);//шаг 6
         essPg.checkTransportEss1(ln, flightList);//шаг 7
 
         //essPg.skipHotel();
         essPg.checkHotelEss1(ln, flightList);//шаг 8
         essPg.clickContinue();//шаг 9
 
-        choosePg.chooseTestStend("9");//шаг 9
+        choosePg.chooseTestStend();//шаг 9
         EprPage eprPg = new EprPage();
         eprPg.checkDataOnPayPage(ln, flightList);//шаг 10
         eprPg.clickPay();//шаг 11
@@ -340,14 +340,14 @@ public class FlightDateTest {
         ChoosePage choosePg = new ChoosePage();
         String pnr = choosePg.step4(currency);//шаг 4(смена валюты) и 5
         EssPage essPg = new EssPage();
-        essPg.checkEss1(ln, flightList, pnr);//шаг 6
+        essPg.checkEss(ln, flightList);//шаг 6
         essPg.checkTransportEss1(ln, flightList);//шаг 7
 
         //essPg.skipHotel();
         essPg.checkHotelEss1(ln, flightList);//шаг 8
         essPg.clickContinue();//шаг 9
 
-        choosePg.chooseTestStend("9");//шаг 9
+        choosePg.chooseTestStend();//шаг 9
         EprPage eprPg = new EprPage();
         eprPg.checkDataOnPayPage(ln, flightList);//шаг 10
         eprPg.clickPay();//шаг 11
@@ -376,14 +376,14 @@ public class FlightDateTest {
         ChoosePage choosePg = new ChoosePage();
         String pnr = choosePg.step4(currency);//шаг 4(смена валюты) и 5
         EssPage essPg = new EssPage();
-        essPg.checkEss1(ln, flightList, pnr);//шаг 6
+        essPg.checkEss(ln, flightList);//шаг 6
         essPg.checkTransportEss1(ln, flightList);//шаг 7
 
         //essPg.skipHotel();
         essPg.checkHotelEss1(ln, flightList);//шаг 8
         essPg.clickContinue();//шаг 9
 
-        choosePg.chooseTestStend("9");//шаг 9
+        choosePg.chooseTestStend();//шаг 9
         EprPage eprPg = new EprPage();
         eprPg.checkDataOnPayPage(ln, flightList);//шаг 10
         eprPg.clickPay();//шаг 11
@@ -412,14 +412,14 @@ public class FlightDateTest {
         ChoosePage choosePg = new ChoosePage();
         String pnr = choosePg.step4(currency);//шаг 4(смена валюты) и 5
         EssPage essPg = new EssPage();
-        essPg.checkEss1(ln, flightList, pnr);//шаг 6
+        essPg.checkEss(ln, flightList);//шаг 6
         essPg.checkTransportEss1(ln, flightList);//шаг 7
 
         //essPg.skipHotel();
         essPg.checkHotelEss1(ln, flightList);//шаг 8
         essPg.clickContinue();//шаг 9
 
-        choosePg.chooseTestStend("9");//шаг 9
+        choosePg.chooseTestStend();//шаг 9
         EprPage eprPg = new EprPage();
         eprPg.checkDataOnPayPage(ln, flightList);//шаг 10
         eprPg.clickPay();//шаг 11

@@ -17,6 +17,7 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static org.testng.AssertJUnit.assertTrue;
 
 
@@ -26,6 +27,9 @@ public class EprPage extends Page {
     public void checkDataOnPayPage(int ln, List<Flight> flyList) {
         System.out.println("\t10. Checking data on Pay page");
         ElementsCollection flights = null;
+        if (getWebDriver().manage().window().getSize().getWidth() < 1280) {
+            $(byXpath("//div[@data-toggle-target='toggle-flight']")).shouldBe(visible).click();//раскрыть блок Перелет
+        }
         for (int i=0; i<20; i++) {
             Sleep(1);
             flights = $$(byXpath("//div[@class='flight__row']"));

@@ -21,11 +21,12 @@ import static org.testng.AssertJUnit.assertTrue;
 public class EssPage extends Page {
 
     @Step("Действие 6, Проверка данных на форме ESS")
-    public void checkEss1(int ln, List<Flight> flightList, String pnr) {
+    public void checkEss(int ln, List<Flight> flightList) {
         System.out.println("\t6. Check ESS form");
-        checkPageAppear(pnr);
+        checkPageAppear();
         if (getWebDriver().manage().window().getSize().getWidth() < 1280) {
-            //$(byXpath("//div[@class='header__menu-icon']/..")).shouldBe(visible).click();
+            $("#left-column-insurance-block").click();//раскрыть блок Страховка
+            Sleep(1);
         }else moveMouseToFlight();
         screenShot("Скриншот");
         ElementsCollection flights = $$(byXpath("//div[@class='cart__item-details']"));
@@ -43,7 +44,10 @@ public class EssPage extends Page {
         System.out.println("\t7. Check ESS form after Transport");
         clickTransportButton();
         checkTransportBlock(ln);
-        moveMouseToFlight();
+        if (getWebDriver().manage().window().getSize().getWidth() < 1280) {
+            $("#left-column-transport").click();//раскрыть блок Транспорт
+            Sleep(1);
+        }else moveMouseToFlight();
         screenShot("Скриншот");
         ElementsCollection flights = $$(byXpath("//div[@class='cart__item-details']"));
         //checkPriceData();
@@ -84,8 +88,8 @@ public class EssPage extends Page {
         Sleep(15);
     }
 
-    private void checkPageAppear(String pnr){
-        $(byXpath("//div[@class='cart__item-title']")).shouldBe(visible).shouldBe(text(pnr)).click();
+    private void checkPageAppear(){
+        $("#left-column-insurance-block").shouldBe(visible);
     }
 
     @Step("Проверка данных о стоимости")
