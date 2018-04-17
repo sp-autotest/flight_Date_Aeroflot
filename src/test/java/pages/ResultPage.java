@@ -85,8 +85,16 @@ public class ResultPage extends Page {
         date = date.substring(0, date.indexOf(",")).trim();
         System.out.println(date);
         String fdate = new SimpleDateFormat(Values.lang[ln][5], new Locale(Values.lang[ln][2])).format(f.start);
-        assertTrue("Дата прилета отличается от забронированной" +
-                           "\nОжидалось : " + fdate +"\nФактически: " + date, date.equals(fdate));
+
+        if (!date.equals(fdate)){
+            String error1 = "ОШИБКА!: Дата прилета отличается от забронированной" +
+                            "\nОжидалось : " + fdate +"\nФактически: " + date;
+            logDoc(error1);
+            screenShot("Скриншот");
+        }
+        //Проверка даты прилета сделана неблокирующей
+        //assertTrue("Дата прилета отличается от забронированной" +
+        //           "\nОжидалось : " + fdate +"\nФактически: " + date, date.equals(fdate));
     }
 
 
