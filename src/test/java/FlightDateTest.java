@@ -307,9 +307,9 @@ public class FlightDateTest {
         essPg.checkEss1(ln, flightList, pnr);//шаг 6
         essPg.checkTransportEss1(ln, flightList);//шаг 7
 
-        essPg.skipHotel();
-        //essPg.checkHotelEss1(ln, flightList);//шаг 8
-        //essPg.clickContinue();//шаг 9
+        //essPg.skipHotel();
+        essPg.checkHotelEss1(ln, flightList);//шаг 8
+        essPg.clickContinue();//шаг 9
 
         choosePg.chooseTestStend("9");//шаг 9
         EprPage eprPg = new EprPage();
@@ -343,9 +343,9 @@ public class FlightDateTest {
         essPg.checkEss1(ln, flightList, pnr);//шаг 6
         essPg.checkTransportEss1(ln, flightList);//шаг 7
 
-        essPg.skipHotel();
-        //essPg.checkHotelEss1(ln, flightList);//шаг 8
-        //essPg.clickContinue();//шаг 9
+        //essPg.skipHotel();
+        essPg.checkHotelEss1(ln, flightList);//шаг 8
+        essPg.clickContinue();//шаг 9
 
         choosePg.chooseTestStend("9");//шаг 9
         EprPage eprPg = new EprPage();
@@ -379,9 +379,9 @@ public class FlightDateTest {
         essPg.checkEss1(ln, flightList, pnr);//шаг 6
         essPg.checkTransportEss1(ln, flightList);//шаг 7
 
-        essPg.skipHotel();
-        //essPg.checkHotelEss1(ln, flightList);//шаг 8
-        //essPg.clickContinue();//шаг 9
+        //essPg.skipHotel();
+        essPg.checkHotelEss1(ln, flightList);//шаг 8
+        essPg.clickContinue();//шаг 9
 
         choosePg.chooseTestStend("9");//шаг 9
         EprPage eprPg = new EprPage();
@@ -415,9 +415,9 @@ public class FlightDateTest {
         essPg.checkEss1(ln, flightList, pnr);//шаг 6
         essPg.checkTransportEss1(ln, flightList);//шаг 7
 
-        essPg.skipHotel();
-        //essPg.checkHotelEss1(ln, flightList);//шаг 8
-        //essPg.clickContinue();//шаг 9
+        //essPg.skipHotel();
+        essPg.checkHotelEss1(ln, flightList);//шаг 8
+        essPg.clickContinue();//шаг 9
 
         choosePg.chooseTestStend("9");//шаг 9
         EprPage eprPg = new EprPage();

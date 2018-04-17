@@ -31,7 +31,11 @@ public class SabrePage extends Page {
         setCommandField(pnr);
         clickCommandButton();
         String[] info = getSabreInfo();
-        for (int i = 0; i < info.length; i++)  checkFlight(i + 1, flyList.get(i), info[i]);
+        for (int i = 0; i < info.length; i++) {
+            System.out.println("info"+i+" = "+info[i]);
+            if (info[i].contains("/OPERATED")) continue;
+            checkFlight(i + 1, flyList.get(i), info[i]);
+        }
         clickSessionCloseButton();
     }
 
