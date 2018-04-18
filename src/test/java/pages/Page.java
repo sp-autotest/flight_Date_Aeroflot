@@ -1,6 +1,8 @@
 package pages;
 
+import com.codeborne.selenide.SelenideElement;
 import config.Values;
+import org.openqa.selenium.JavascriptExecutor;
 import ru.yandex.qatools.allure.annotations.Step;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -8,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static listeners.ScreenShoter.makeScreenshot;
 
 
@@ -91,6 +94,11 @@ public class Page {
             if (Values.lang[i][0].equals(language)) return i;
         }
         return 0;
+    }
+
+    public static void jsClick(SelenideElement el) {
+        JavascriptExecutor executor = (JavascriptExecutor) getWebDriver();
+        executor.executeScript("arguments[0].click();", el.toWebElement());
     }
 
 }

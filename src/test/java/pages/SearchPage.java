@@ -3,6 +3,8 @@ package pages;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import config.Values;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
 import ru.yandex.qatools.allure.annotations.Step;
 import struct.Flight;
 import java.text.ParseException;
@@ -28,7 +30,7 @@ public class SearchPage extends Page {
     @Step("Действие 1, поиск рейсов")
     public void searchFlight1(int ln, String from, String to, int days) {
         System.out.println("\t1. Search flight");
-        selectLocale(ln);
+        //selectLocale(ln);
         setFrom(from);
         setTo(to);
         dateThere = addMonthAndDays(0,days);
@@ -39,7 +41,7 @@ public class SearchPage extends Page {
     @Step("Действие 1, поиск рейсов")
     public void searchFlight2(int ln, String from, String to, int days, int backdays) {
         System.out.println("\t1. Search flight");
-        selectLocale(ln);
+        //selectLocale(ln);
         setFrom(from);
         setTo(to);
         dateThere = addMonthAndDays(0,days);
@@ -52,7 +54,7 @@ public class SearchPage extends Page {
     @Step("Действие 1, поиск рейсов")
     public void searchFlight4(int ln, String from, String to, String from2, int days, int backdays) {
         System.out.println("\t1. Search flight");
-        selectLocale(ln);
+        //selectLocale(ln);
         setFrom(from);
         setTo(to);
         dateThere = addMonthAndDays(0,days);
@@ -105,8 +107,11 @@ public class SearchPage extends Page {
         if (getWebDriver().manage().window().getSize().getWidth() < 1280) {
             $(byXpath("//div[@class='header__menu-icon']/..")).shouldBe(visible).click();
         }
-        $(byXpath("//div[@class='header__select-items']")).shouldBe(visible).click();
-        $(byXpath("//div[text()='" + lang[ln][1] + "']")).shouldBe(visible).click();
+        //$(byXpath("//div[@class='header__select-items']")).shouldBe(visible).click();
+        //$(byXpath("//div[text()='" + lang[ln][1] + "']")).shouldBe(visible).click();
+        JavascriptExecutor executor = (JavascriptExecutor) getWebDriver();
+        executor.executeScript("document.getElementsByClassName('input input--phantom')[0].style.display='block';");
+        $(byXpath("//div[@class='input__select']/select")).selectOptionByValue(lang[ln][2]);
         $(byXpath("//input[@class='input__text-input']")).shouldBe(visible);
     }
 
@@ -256,7 +261,12 @@ public class SearchPage extends Page {
                 f = new Flight();
                 f.from = flights.get(i).$(byXpath("descendant::div[@class='time-destination__from']/div[@class='time-destination__airport']")).getText();
                 f.to = flights.get(i).$(byXpath("descendant::div[@class='time-destination__to']/div[@class='time-destination__airport']")).getText();
-                f.number = flights.get(i).$(byXpath("descendant::div[@class='flight-search__plane-number']")).getText();
+
+                SelenideElement num = flights.get(i).$(byXpath("descendant::div[@class='flight-search__plane-number']"));
+                //f.number = num.getText();
+                JavascriptExecutor executor = (JavascriptExecutor) getWebDriver();
+                f.number = (String) executor.executeScript("return arguments[0].textContent;", num.toWebElement());
+
                 d = (m==0) ? dateThere : dateBack;
                 d = d + " " + flights.get(i).$(byXpath("descendant::div[@class='time-destination__from']/div[@class='time-destination__time']")).getText();
                 f.start = stringToDate(d);

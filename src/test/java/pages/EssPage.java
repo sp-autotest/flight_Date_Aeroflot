@@ -40,7 +40,7 @@ public class EssPage extends Page {
     }
 
     @Step("Действие 7, Нажать на кнопку «Транспорт», проверка данных на форме ESS")
-    public void checkTransportEss1(int ln, List<Flight> flightList) {
+    public void checkTransportEss(int ln, List<Flight> flightList) {
         System.out.println("\t7. Check ESS form after Transport");
         clickTransportButton();
         checkTransportBlock(ln);
@@ -60,11 +60,14 @@ public class EssPage extends Page {
     }
 
     @Step("Действие 8, Нажать на кнопку «Отели», проверка данных на форме ESS")
-    public void checkHotelEss1(int ln, List<Flight> flightList) {
+    public void checkHotelEss(int ln, List<Flight> flightList) {
         System.out.println("\t8. Check ESS form after Hotel");
         clickHotelButton();
         checkHotelFormAppear(ln);
-        moveMouseToFlight();
+        if (getWebDriver().manage().window().getSize().getWidth() < 1280) {
+            $(byXpath("//div[@class='cart__item cart__item--active']")).click();//раскрыть блок Проживание
+            Sleep(1);
+        }else moveMouseToFlight();
         screenShot("Скриншот");
         ElementsCollection flights = $$(byXpath("//div[@class='cart__item-details']"));
         //checkPriceData();

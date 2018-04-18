@@ -295,7 +295,7 @@ public class FlightDateTest {
                 "\n*** AUTOTEST *** : direction From, " + Values.lang[ln][2].toUpperCase()+
                 ", " + currency + ", " + from + "->" + to + ", " + days +"days" +
                 "\n============================================================");
-        open(Values.host);
+        open(Values.host + Values.lang[ln][2]);
         SearchPage searchPg = new SearchPage();
         searchPg.searchFlight1(ln, from, to, days);//шаг 1
         List<Flight> flightList = searchPg.selectFlight1(ln);//шаг 2
@@ -305,10 +305,10 @@ public class FlightDateTest {
         String pnr = choosePg.step4(currency);//шаг 4(смена валюты) и 5
         EssPage essPg = new EssPage();
         essPg.checkEss(ln, flightList);//шаг 6
-        essPg.checkTransportEss1(ln, flightList);//шаг 7
+        essPg.checkTransportEss(ln, flightList);//шаг 7
 
         //essPg.skipHotel();
-        essPg.checkHotelEss1(ln, flightList);//шаг 8
+        essPg.checkHotelEss(ln, flightList);//шаг 8
         essPg.clickContinue();//шаг 9
 
         choosePg.chooseTestStend();//шаг 9
@@ -331,7 +331,7 @@ public class FlightDateTest {
                 "\n*** AUTOTEST *** : direction Roundtrip, " + Values.lang[ln][2].toUpperCase()+
                 ", " + currency + ", " + from + "->" + to + ", " + days +"days, " + backdays +"days" +
                 "\n============================================================");
-        open(Values.host);
+        open(Values.host + Values.lang[ln][2]);
         SearchPage searchPg = new SearchPage();
         searchPg.searchFlight2(ln, from, to, days, backdays);//шаг 1
         List<Flight> flightList = searchPg.selectFlight2(ln);//шаг 2
@@ -341,10 +341,10 @@ public class FlightDateTest {
         String pnr = choosePg.step4(currency);//шаг 4(смена валюты) и 5
         EssPage essPg = new EssPage();
         essPg.checkEss(ln, flightList);//шаг 6
-        essPg.checkTransportEss1(ln, flightList);//шаг 7
+        essPg.checkTransportEss(ln, flightList);//шаг 7
 
         //essPg.skipHotel();
-        essPg.checkHotelEss1(ln, flightList);//шаг 8
+        essPg.checkHotelEss(ln, flightList);//шаг 8
         essPg.clickContinue();//шаг 9
 
         choosePg.chooseTestStend();//шаг 9
@@ -367,7 +367,7 @@ public class FlightDateTest {
                 "\n*** AUTOTEST *** : direction Roundtrip with transfer, " + Values.lang[ln][2].toUpperCase()+
                 ", " + currency + ", " + from + "->" + to + ", " + days +"days, " + backdays +"days" +
                 "\n=======================================================================================");
-        open(Values.host);
+        open(Values.host + Values.lang[ln][2]);
         SearchPage searchPg = new SearchPage();
         searchPg.searchFlight2(ln, from, to, days, backdays);//шаг 1
         List<Flight> flightList = searchPg.selectFlight3(ln);//шаг 2
@@ -377,10 +377,10 @@ public class FlightDateTest {
         String pnr = choosePg.step4(currency);//шаг 4(смена валюты) и 5
         EssPage essPg = new EssPage();
         essPg.checkEss(ln, flightList);//шаг 6
-        essPg.checkTransportEss1(ln, flightList);//шаг 7
+        essPg.checkTransportEss(ln, flightList);//шаг 7
 
         //essPg.skipHotel();
-        essPg.checkHotelEss1(ln, flightList);//шаг 8
+        essPg.checkHotelEss(ln, flightList);//шаг 8
         essPg.clickContinue();//шаг 9
 
         choosePg.chooseTestStend();//шаг 9
@@ -403,7 +403,7 @@ public class FlightDateTest {
                 "\n*** AUTOTEST *** : direction Complex, " + Values.lang[ln][2].toUpperCase() +
                 ", " + currency + ", " + from + "->" + to + ", " + from2 + "->" + from + ", "  + days + "days, " + backdays + "days" +
                 "\n==================================================================================");
-        open(Values.host);
+        open(Values.host + Values.lang[ln][2]);
         SearchPage searchPg = new SearchPage();
         searchPg.searchFlight4(ln, from, to, from2, days, backdays);//шаг 1
         List<Flight> flightList = searchPg.selectFlight1(ln);//шаг 2
@@ -413,11 +413,11 @@ public class FlightDateTest {
         String pnr = choosePg.step4(currency);//шаг 4(смена валюты) и 5
         EssPage essPg = new EssPage();
         essPg.checkEss(ln, flightList);//шаг 6
-        essPg.checkTransportEss1(ln, flightList);//шаг 7
+        essPg.checkTransportEss(ln, flightList);//шаг 7
 
-        //essPg.skipHotel();
-        essPg.checkHotelEss1(ln, flightList);//шаг 8
-        essPg.clickContinue();//шаг 9
+        essPg.skipHotel();
+        //essPg.checkHotelEss(ln, flightList);//шаг 8
+        //essPg.clickContinue();//шаг 9
 
         choosePg.chooseTestStend();//шаг 9
         EprPage eprPg = new EprPage();
