@@ -5,6 +5,7 @@ import com.codeborne.selenide.SelenideElement;
 import config.Values;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import ru.yandex.qatools.allure.annotations.Step;
 import struct.Flight;
 import java.text.ParseException;
@@ -30,7 +31,6 @@ public class SearchPage extends Page {
     @Step("Действие 1, поиск рейсов")
     public void searchFlight1(int ln, String from, String to, int days) {
         System.out.println("\t1. Search flight");
-        //selectLocale(ln);
         setFrom(from);
         setTo(to);
         dateThere = addMonthAndDays(0,days);
@@ -41,7 +41,6 @@ public class SearchPage extends Page {
     @Step("Действие 1, поиск рейсов")
     public void searchFlight2(int ln, String from, String to, int days, int backdays) {
         System.out.println("\t1. Search flight");
-        //selectLocale(ln);
         setFrom(from);
         setTo(to);
         dateThere = addMonthAndDays(0,days);
@@ -54,7 +53,6 @@ public class SearchPage extends Page {
     @Step("Действие 1, поиск рейсов")
     public void searchFlight4(int ln, String from, String to, String from2, int days, int backdays) {
         System.out.println("\t1. Search flight");
-        //selectLocale(ln);
         setFrom(from);
         setTo(to);
         dateThere = addMonthAndDays(0,days);
@@ -125,29 +123,44 @@ public class SearchPage extends Page {
     private void setTo(String city) {
         $$(byXpath("//input[@class='input__text-input']")).get(1).shouldBe(visible).setValue(city);
         $(byXpath("//div[@class='search-form__dropdown-item-code'][text()='" + city + "']")).click();
+        Sleep(1);
     }
 
     @Step("Указать дату \"Туда\": {0}")
     private void setThere(String date) {
         date = date.substring(0,2)+"."+date.substring(2,4)+"."+date.substring(4);
-        SelenideElement el = $$(byXpath("//input[@class='input__text-input']")).get(2);
-        while(!el.getValue().equals(date)) {
-            el.setValue(date);
+        WebElement el = $$(byXpath("//input[@class='input__text-input']")).get(2).toWebElement();
+        System.out.println("date there = " + el.getAttribute("value"));
+        System.out.println(el.getSize().toString());
+        while(!el.getAttribute("value").equals(date)) {
+            Actions actions = new Actions(getWebDriver());
+            actions.moveToElement(el, 5, 15)
+                    .clickAndHold()
+                    .moveByOffset((int)(el.getSize().width/2)+10, 0)
+                    .release()
+                    .perform();
+            el.sendKeys(date);
         }
         el.click();
+        SelenideElement ele = $$(byXpath("//input[@class='input__text-input']")).get(3);
+        ele.click();
+        ele.$(byXpath("../../label")).click();
     }
 
     @Step("Указать дату \"Обратно\": {0}")
     private void setBack(String date) {
+        System.out.println("Date back = " + date);
         SelenideElement el = $$(byXpath("//input[@class='input__text-input']")).get(3);
+        el.click();
         el.setValue(date);
         el.$(byXpath("../../label")).click();
-
     }
 
     @Step("Нажать \"Найти\"")
     private void clickSearchButton() {
-        $(byXpath("//a[@class='button button--wide button--lg']")).shouldBe(visible).click();
+        SelenideElement el = $(byXpath("//a[@class='button button--wide button--lg']")).shouldBe(visible);
+        scrollWithOffset(el, 0, -100);
+        el.click();
     }
 
     @Step("Выбрать рейс")

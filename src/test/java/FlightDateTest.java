@@ -87,13 +87,13 @@ public class FlightDateTest {
     public Object[][] parseLocaleData1() {
         return new Object[][]{
                 {"Французский", "EUR", "MOW", "PRG", 20},
-                /*{"Испанский",   "EUR", "MOW", "PRG", 20},
+                {"Испанский",   "EUR", "MOW", "PRG", 20},
                 {"Итальянский", "EUR", "MOW", "PRG", 20},
                 {"Японский",    "USD", "MOW", "PRG", 20},
                 {"Китайский",   "USD", "MOW", "PRG", 20},
                 {"Английский",  "USD", "MOW", "PRG", 20},
                 {"Корейский",   "RUB", "MOW", "PRG", 20},
-                */{"Русский",     "RUB", "MOW", "PRG", 20},/*
+                {"Русский",     "RUB", "MOW", "PRG", 20},
                 {"Немецкий",    "RUB", "MOW", "PRG", 20},
                 {"Русский",     "CNY", "MOW", "PRG", 20},
                 {"Китайский",   "CNY", "MOW", "PRG", 20},
@@ -149,7 +149,7 @@ public class FlightDateTest {
                 {"Немецкий",    "RUB", "MOW", "PRG", 60},
                 {"Русский",     "CNY", "MOW", "PRG", 60},
                 {"Китайский",   "CNY", "MOW", "PRG", 60},
-                {"Немецкий",    "CNY", "MOW", "PRG", 60},*/
+                {"Немецкий",    "CNY", "MOW", "PRG", 60},
         };
     }
 
@@ -415,9 +415,9 @@ public class FlightDateTest {
         essPg.checkEss(ln, flightList);//шаг 6
         essPg.checkTransportEss(ln, flightList);//шаг 7
 
-        essPg.skipHotel();
-        //essPg.checkHotelEss(ln, flightList);//шаг 8
-        //essPg.clickContinue();//шаг 9
+        //essPg.skipHotel();
+        essPg.checkHotelEss(ln, flightList);//шаг 8
+        essPg.clickContinue();//шаг 9
 
         choosePg.chooseTestStend();//шаг 9
         EprPage eprPg = new EprPage();

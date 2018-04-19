@@ -109,7 +109,9 @@ public class PassengerPage extends Page {
     @Step("Указать номер")
     private String setRandomNumber(){
         String number = getRandomNumberString(6);
-        $$(byXpath("descendant::input[@type='text']")).get(4).setValue(number);
+        SelenideElement el = $$(byXpath("descendant::input[@type='text']")).get(4);
+        el.click();
+        el.setValue(number);
         return number;
     }
 

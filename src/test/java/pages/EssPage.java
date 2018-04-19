@@ -3,6 +3,7 @@ package pages;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import config.Values;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import ru.yandex.qatools.allure.annotations.Step;
 import struct.Flight;
@@ -190,7 +191,7 @@ public class EssPage extends Page {
 
     @Step("Переместить мышку в блок маршрутов")
     private void moveMouseToFlight() {
-        SelenideElement el = $(byXpath("//div[@data-toggle-id='cart-booking']"));
+        WebElement el = $(byXpath("//div[@data-toggle-id='cart-booking']")).toWebElement();
         Actions actions = new Actions(getWebDriver());
         actions.moveToElement(el).perform();
         Sleep(1);
