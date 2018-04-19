@@ -87,13 +87,13 @@ public class FlightDateTest {
     public Object[][] parseLocaleData1() {
         return new Object[][]{
                 {"Французский", "EUR", "MOW", "PRG", 20},
-                {"Испанский",   "EUR", "MOW", "PRG", 20},
+                /*{"Испанский",   "EUR", "MOW", "PRG", 20},
                 {"Итальянский", "EUR", "MOW", "PRG", 20},
                 {"Японский",    "USD", "MOW", "PRG", 20},
                 {"Китайский",   "USD", "MOW", "PRG", 20},
                 {"Английский",  "USD", "MOW", "PRG", 20},
                 {"Корейский",   "RUB", "MOW", "PRG", 20},
-                {"Русский",     "RUB", "MOW", "PRG", 20},
+                */{"Русский",     "RUB", "MOW", "PRG", 20},/*
                 {"Немецкий",    "RUB", "MOW", "PRG", 20},
                 {"Русский",     "CNY", "MOW", "PRG", 20},
                 {"Китайский",   "CNY", "MOW", "PRG", 20},
@@ -149,7 +149,7 @@ public class FlightDateTest {
                 {"Немецкий",    "RUB", "MOW", "PRG", 60},
                 {"Русский",     "CNY", "MOW", "PRG", 60},
                 {"Китайский",   "CNY", "MOW", "PRG", 60},
-                {"Немецкий",    "CNY", "MOW", "PRG", 60},
+                {"Немецкий",    "CNY", "MOW", "PRG", 60},*/
         };
     }
 
