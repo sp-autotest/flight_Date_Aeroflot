@@ -6,11 +6,11 @@ public class Values {
                                                   //Возможные значения:
                                                   //    link - с помощью подмены параметров в линке
                                                   //    soap - с помощью soap-запросов
-    public static String email = "tafl@software-provider.ru";
-    public static String host = "https://afl-test.test.aeroflot.ru/sb/app/ru-";
+    public static String email = "...@software-provider.ru";
+    public static String host = "...-";
 
-    public static String sabrehost = "https://ws.ess.test.aeroflot.ru/tools/SabreWS/Command/";
-    public static String office_host = "https://office.ess.test.aeroflot.ru/";
+    public static String sabrehost = "...";
+    public static String office_host = "...";
     public static String office_login = "";
     public static String office_password = "";
 
